@@ -521,7 +521,7 @@ ClassSubList["monster hunter"] = {
 			source : ["UA:GH", 2],
 			minlevel : 3,
 			usages : 1,
-			recovery : "long rest",			
+			recovery : "long rest",
 			description : "\n   " + "I can cast Detect Magic as a ritual and Protection from Evil & Good once per long rest" + "\n   " + "I gain the ability to speak one of the following languages: Abyssal, Celestial, or Infernal",
 			action : ["action", " (Prot vs. Evil/Good)"],
 			eval : "AddLanguage(\"Abyssal, Celestial, or Infernal\", \"Monster Hunter (Hunter's Mysticism)\");",
@@ -2350,7 +2350,7 @@ ClassSubList["horizon conclave"] = {
 };
 ClassSubList["horizon conclave"].features["subclassfeature3"].spellcastingExtra[100] = "AddToKnown";
 ClassList.rangerua.subclasses[1].push("horizon conclave");
-ClassSubList["horizon walker"] = eval(ClassSubList["horizon conclave"].toSource());
+ClassSubList["horizon walker"] = eval($.extend({}, ClassSubList["horizon conclave"]));
 delete ClassSubList["horizon walker"].attacks;
 ClassSubList["horizon walker"].subname = "Horizon Walker";
 ClassSubList["horizon walker"].fullname = "Horizon Walker";
@@ -3026,7 +3026,7 @@ function UAstartupCode() {
 			};
 		};
 	};
-	
+
 	//Warlock (the Seeker): add the "Pact Boon" feature from the Warlock class, with one addition, to the subclass
 	var PBfeat = ClassList.warlock.features["pact boon"].toSource();
 	ClassSubList["the seeker"].features["pact boon"] = eval(PBfeat);
@@ -3045,7 +3045,7 @@ function UAstartupCode() {
 			firstCol : "R"
 		}
 	};
-	
+
 	//Add fighting styles to the options of fighter, paladin, and ranger
 	var FSclasses = ["fighter", "ranger", "paladin", "rangerua", "champion"];
 	[{
@@ -3081,9 +3081,9 @@ function UAstartupCode() {
 			FSfeat.choices.push(FStyle.choice);
 			FSfeat[FStyle.choice.toLowerCase()] = FStyle.feature;
 			if (indx === arr.length - 1) FSfeat.choices.sort();
-		};		
+		};
 	});
-	
+
 	//Wizard (Theurgy) add all cleric domain options to the various class features
 	var MTfeat = ClassSubList["theurgy"].features;
 	for (var i = 0; i < ClassList.cleric.subclasses[1].length; i++) {
@@ -3150,7 +3150,7 @@ function UAstartupCode() {
 			};
 		};
 	};
-	
+
 	//create the magic items for the wondrous items class feature of the artificer
 	ClassList.artificer.features["wondrous invention"].extrachoices.forEach(function (theI) {
 		var theItem = theI.replace(/ *\(.*\)/, "");
@@ -3164,7 +3164,7 @@ function UAstartupCode() {
 			};
 		};
 	});
-	
+
 	//add the invocations from the Warlock & Wizard Unearthed Arcana
 	[{
 		objname : "Aspect of the Moon (prereq: the Archfey patron)",
@@ -3443,6 +3443,6 @@ function UAstartupCode() {
 		ClassList.warlock.features["eldritch invocations"][invoc.objname.toLowerCase()] = invoc;
 	});
 	ClassList.warlock.features["eldritch invocations"].extrachoices.sort();
-	
+
 	AmendSpellsList();
 };
