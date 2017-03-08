@@ -2925,7 +2925,7 @@ function ApplyClasses(inputclasstxt, inputlevel) {
 	//put hit dice on sheet
 
 	UpdateLevelFeatures("class");
-	if (IsSubclassException.toSource() === "({})") {
+	if ($.extend({}, IsSubclassException) === "({})") {
 		AddAttacksPerAction(); //update number of attacks
 		ApplyProficiencies(true); //call to update armor, shield and weapon proficiencies
 		UpdateTooltips(); //skills tooltip, ability score tooltip
@@ -3565,8 +3565,8 @@ function SetArmordropdown() {
 	};
 	if (TheList.indexOf("Plate") !== TheList.length - 1) TheList.splice(TheList.indexOf("Plate") + 1, 0, "")
 
-	if (tDoc.getField("AC Armor Description").submitName === TheList.toSource()) return; //no changes, so no reason to do this
-	tDoc.getField("AC Armor Description").submitName = TheList.toSource();
+	if (tDoc.getField("AC Armor Description").submitName === $.extend({}, TheList)) return; //no changes, so no reason to do this
+	tDoc.getField("AC Armor Description").submitName = $.extend({}, TheList);
 
 	var theFldVal = What("AC Armor Description");
 	tDoc.getField("AC Armor Description").setItems(TheList);
@@ -3594,8 +3594,8 @@ function SetBackgrounddropdown() {
 		}
 	};
 	ArrayDing.sort();
-	if (tDoc.getField("Background").submitName === ArrayDing.toSource()) return; //no changes, so no reason to do this
-	tDoc.getField("Background").submitName = ArrayDing.toSource();
+	if (tDoc.getField("Background").submitName === $.extend({}, ArrayDing)) return; //no changes, so no reason to do this
+	tDoc.getField("Background").submitName = $.extend({}, ArrayDing);
 	var theFldVal = What("Background");
 	tDoc.getField("Background").setItems(ArrayDing);
 	Value("Background", theFldVal, tempString);
@@ -3621,8 +3621,8 @@ function SetRacesdropdown() {
 		}
 	}
 	ArrayDing.sort();
-	if (tDoc.getField("Race").submitName === ArrayDing.toSource()) return; //no changes, so no reason to do this
-	tDoc.getField("Race").submitName = ArrayDing.toSource();
+	if (tDoc.getField("Race").submitName === $.extend({}, ArrayDing)) return; //no changes, so no reason to do this
+	tDoc.getField("Race").submitName = $.extend({}, ArrayDing);
 	var theFldVal = What("Race");
 	tDoc.getField("Race").setItems(ArrayDing);
 	Value("Race", theFldVal, tempString);
@@ -3737,9 +3737,9 @@ function MakeInventoryMenu() {
 	menuLVL2(toolMenu, "toolmenu", toolArray, "tool");
 
 	var menuStringsArray = [
-		["Pack", packMenu.toSource()],
-		["Gear", gearMenu.toSource()],
-		["Tool", toolMenu.toSource()],
+		["Pack", $.extend({}, packMenu)],
+		["Gear", $.extend({}, gearMenu)],
+		["Tool", $.extend({}, toolMenu)],
 	];
 
 	var menuExtraTypes = [["To left column", "left"]];
@@ -5294,8 +5294,8 @@ function SetFeatsdropdown() {
 	}
 	ArrayDing.sort();
 
-	if (tDoc.getField("Feat Name 1").submitName === ArrayDing.toSource()) return; //no changes, so no reason to do this
-	tDoc.getField("Feat Name 1").submitName = ArrayDing.toSource();
+	if (tDoc.getField("Feat Name 1").submitName === $.extend({}, ArrayDing)) return; //no changes, so no reason to do this
+	tDoc.getField("Feat Name 1").submitName = $.extend({}, ArrayDing);
 
 	for (var i = 1; i <= FieldNumbers.feats; i++) {
 		tDoc.getField("Feat Name " + i).setItems(ArrayDing);
@@ -9110,8 +9110,8 @@ function SetBackgroundFeaturesdropdown() {
 	};
 	tempArray.sort();
 
-	if (tDoc.getField("Background Feature").submitName === tempArray.toSource()) return; //no changes, so no reason to do this
-	tDoc.getField("Background Feature").submitName = tempArray.toSource();
+	if (tDoc.getField("Background Feature").submitName === $.extend({}, tempArray)) return; //no changes, so no reason to do this
+	tDoc.getField("Background Feature").submitName = $.extend({}, tempArray);
 
 	var theFldVal = What("Background Feature");
 	tDoc.getField("Background Feature").setItems(tempArray);

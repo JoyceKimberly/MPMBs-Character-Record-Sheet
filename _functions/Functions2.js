@@ -1386,8 +1386,8 @@ function SetWildshapeDropdown() {
 	theList.unshift("");
 	if (!typePF) theList.unshift("Make a Selection");
 
-	if (tDoc.getField("Wildshapes.Settings").submitName === theList.toSource()) return; //no changes, so no reason to do this
-	tDoc.getField("Wildshapes.Settings").submitName = theList.toSource();
+	if (tDoc.getField("Wildshapes.Settings").submitName === $.extend({}, theList)) return; //no changes, so no reason to do this
+	tDoc.getField("Wildshapes.Settings").submitName = $.extend({}, theList);
 
 	var theString = "Type (or select) the name of the creature you want to calculate a Wild Shape for.";
 	theString += "\n\n" + toUni("Not auto-updated") + "\nThe generated stats will not auto-update once you change something on the first page! They will only update when your druid level changes. You can have them re-calculated using the \"Wild Shape Options\" button at the top of this page.";
@@ -1428,8 +1428,8 @@ function SetCompDropdown() {
 
 	theList = theList.concat(theListC);
 
-	if (tDoc.getField("Companion.Remember").submitName === theList.toSource()) return; //no changes, so no reason to do this
-	tDoc.getField("Companion.Remember").submitName = theList.toSource();
+	if (tDoc.getField("Companion.Remember").submitName === $.extend({}, theList)) return; //no changes, so no reason to do this
+	tDoc.getField("Companion.Remember").submitName = $.extend({}, theList);
 
 	var theString = "Type (or select) the name of the race you want to have on this page. Note that first a list of player races is given, followed by an alphabetical list of creatures. You are not limited by the names in the list. Just typing \"Drow\" will also be recognized, for example.";
 	theString += "\n\n" + toUni("Selecting a creature") + "\nAll information of the creature will automatically be added. This includes ability scores, proficiencies, senses, weapons, etc. You can change the things afterwards.\nBecause not all creatures need the same amount of space for all their feature text,some fields may overflow. You can manually edit these fields so that everything is visible when printed (e.g. move things to the \"Noted\" below).";
@@ -1588,7 +1588,7 @@ function CompOptions() {
 			} else if (MenuSelection[1] === "comp.eqp") {
 				toShow[1] = !toShow[1];
 			}
-			Value(prefix + "Companion.Layers.Remember", toShow.toSource());
+			Value(prefix + "Companion.Layers.Remember", $.extend({}, toShow));
 			ShowCompanionLayer(prefix);
 		} else {
 			if (MenuSelection[0] === "change" && MenuSelection[1] === "reset") {
@@ -5599,7 +5599,7 @@ function PatreonStatement() {
 
 			app.execDialog(PatreonDialog);
 			//reset the counter
-			tDoc.getField("SaveIMG.Patreon").submitName = new Date().toSource();
+			tDoc.getField("SaveIMG.Patreon").submitName = $.extend({}, new Date());
 		};
 	} catch (e) {};
 }
