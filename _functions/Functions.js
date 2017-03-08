@@ -4,15 +4,15 @@ function MakeDocName() {
 };
 
 function Hide(field) {
-	tDoc.getField(field).display = display.hidden;
+	//tDoc.getField(field).display = display.hidden;
 };
 
 function DontPrint(field) {
-	tDoc.getField(field).display = display.noPrint;
+	//tDoc.getField(field).display = display.noPrint;
 };
 
 function Show(field) {
-	tDoc.getField(field).display = display.visible;
+	//tDoc.getField(field).display = display.visible;
 };
 
 function Editable(field) {
@@ -24,11 +24,29 @@ function Uneditable(field) {
 };
 
 function Value(field, FldValue, tooltip) {
+/*
 	if (!tDoc.getField(field)) return false;
 	tDoc.getField(field).value = FldValue;
 	if (tooltip !== undefined) {
 		tDoc.getField(field).userName = tooltip;
 	}
+*/
+  var ele = document.getElementsByName(field)[0];
+
+  if (!ele) {
+    //console.log(field + " -> " + JSON.stringify(FldValue) );
+    return false;
+  };
+  if ( ele.classList.contains('number') ) {
+    ele.value = +(FldValue);
+
+  } else {
+    ele.value = FldValue;
+  };
+
+  if ( tooltip !== undefined ) {
+    ele.setAttribute('title', tooltip);
+  };
 };
 
 function What(field) {
@@ -55,6 +73,7 @@ function SwapTooltip(field1, field2) {
 };
 
 function Checkbox(field, FldValue, tooltip) {
+/*
 	if (!tDoc.getField(field)) return false;
 	var Checkit = (FldValue === undefined) ? true : FldValue;
 	var checkNo = isArray(tDoc.getField(field).page) ? tDoc.getField(field).page.length : 1;
@@ -64,6 +83,19 @@ function Checkbox(field, FldValue, tooltip) {
 			tDoc.getField(field).userName = tooltip;
 		}
 	}
+*/
+  var ele = document.getElementsByName(field)[0];
+
+  if (!ele) {
+    //console.log(field + " -> " + JSON.stringify(FldValue) );
+    return false;
+  };
+  var Checkit = (FldValue === undefined) ? true : FldValue;
+  ele.checked = Checkit;
+
+  if ( tooltip !== undefined ) {
+    ele.setAttribute('title', tooltip);
+  };
 };
 
 function desc(arr) {
