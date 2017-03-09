@@ -466,7 +466,7 @@ var SetPrintPages_Dialog = {
 			"txt0" : "Please select the pages you want to print or save for future use.\n\nThe values you enter here will be remembered for the next time you push the \"Print\" button in the \"JavaScript Window\" or bookmarks section.\n\nNote that what you do here will have no effect on 'normal' print commands (i.e. using the file menu or Ctrl+P).",
 			"txt1" : "Note that this cannot be changed in the next dialog, the print pop-up. The selection you make here will always override anything you do in the next dialog or print settings.",
 		});
-
+		
 		if (this.bDupl) {
 			dialog.load({
 				"dupl" : true,
@@ -476,11 +476,11 @@ var SetPrintPages_Dialog = {
 				"sing" : true,
 			});
 		}
-
+		
 		dialog.visible({
 			"Pag0" : this.bshowPR
 		})
-
+		
 		dialog.enable({
 			"Pag1" : this.aCSfront,
 			"Pag2" : this.aCSback,
@@ -891,7 +891,7 @@ var SetUnitDecimals_Dialog = {
 		dialog.load({
 			"txt0" : "Any changes you make will be applied immediately to all fields that would logically be impacted by them. The conversion is not completely accurate, as some accuracy is sacrificed for numbers that are easier to use during play.\n\n \u2022 Distances in game mechanics are converted by assuming 1 ft is 30 cm;\n \u2022 Weights used in game mechanics are converted by assuming 2 lb is 1 kg;\n \u2022 All converted units used in game mechanics are rounded to the nearest half;\n \u2022 Equipment weight is calculated to three decimals accuracy;\n \u2022 The Character's Height and Weight fields are converted with more accuracy.\n\nNote that units you added manually might not be converted correctly as not all units are supported.\nAny features that auto-fill will recognize these settings and use them to update the sheet. So you only have to set this once.\nThe Spell Sheet can't be flawlessly changed from one unit system to another on the fly. Changing unit systems is best done before generating a Spell Sheet.\nFields that are never auto-filled by sheet automation, such as the character history or notes on the 6th page, will not be changed.",
 		});
-
+		
 		if (this.bSys === "imperial") {
 			dialog.load({
 				"SyIm" : true,
@@ -918,7 +918,7 @@ var SetUnitDecimals_Dialog = {
 		if (oResult["SyIm"]) {
 			this.bSys = "imperial";
 		} else {
-			this.bSys = "metric";
+			this.bSys = "metric";			
 		}
 		if (oResult["DeDo"]) {
 			this.bDec = "dot";
@@ -1044,7 +1044,7 @@ var SetTextOptions_Dialog = {
 	bDefFont : "SegoePrint",
 
 	//when starting the dialog
-	initialize : function (dialog) {
+	initialize : function (dialog) {	
 		dialog.load({
 			"txt0" : "Below you can set the font size and" + " change the font of all the form fields.\n\nNote that if you use a font of your own choosing (custom font), it might not be possible to align the text properly with the text lines, regardless of the font size you select.\n\nThe settings for font size will be applied to all text fields that support multiple lines of text. Fields with a single line of text have a font size of 'auto'.\n\nIf you set the font size to 'auto', the text will resize to the size of the field. You can subsequently make the text smaller by entering more text or by entering line breaks.",
 			"StSz" : this.bDefSize.toString(),
@@ -1052,12 +1052,12 @@ var SetTextOptions_Dialog = {
 			"fAlS" : this.bFontsArray,
 			"fStS" : this.bDefFont,
 		});
-
+		
 		dialog.enable({
 			"fStS" : false,
 			"StSz" : false,
 		});
-
+		
 		if (Number(this.bSize) === this.bDefSize) {
 			dialog.load({
 				"sSta" : true,
@@ -1069,9 +1069,9 @@ var SetTextOptions_Dialog = {
 		} else {
 			dialog.load({
 				"sOth" : true,
-			});
+			});			
 		}
-
+		
 		if (this.bFont === this.bDefFont) {
 			dialog.load({
 				"fSta" : true,
@@ -1084,22 +1084,22 @@ var SetTextOptions_Dialog = {
 			dialog.load({
 				"fOth" : true,
 				"fOtS" : this.bFont,
-			});
+			});			
 		}
 	},
 
 	//when pressing the ok button
 	commit : function (dialog) {
 		var oResult = dialog.store();
-
+		
 		if (oResult["sSta"]) {
 			this.bSize = oResult["StSz"];
 		} else if (oResult["sAut"]) {
-			this.bSize = 0;
+			this.bSize = 0;			
 		} else if (oResult["sOth"]) {
-			this.bSize = oResult["sOSi"];
+			this.bSize = oResult["sOSi"];			
 		}
-
+		
 		if (oResult["fSta"]) {
 			this.bFont = this.bDefFont;
 		} else if (oResult["fAlt"]) {
@@ -1119,7 +1119,7 @@ var SetTextOptions_Dialog = {
 			}
 		}
 	},
-
+	
 	//do this whenever a number is entered to make sure it has a dot as decimal separator and not trailing zeroes
 	sOSi : function (dialog) {
 		var cResult = dialog.store()["sOSi"];
@@ -1128,20 +1128,20 @@ var SetTextOptions_Dialog = {
 		} else {
 			var Parsed = parseFloat(cResult);
 		}
-
+		
 		dialog.load({
 			"sOth" : true,
 			"sOSi" : Parsed.toString(),
 		});
 	},
-
+	
 	fSta : function (dialog) {
 		this.bDefSize = this.bDefSizeSheet;
 		dialog.load({
 			"StSz" : this.bDefSize.toString(),
 		});
 	},
-
+	
 	fAlt : function (dialog) {
 		var fontResult = dialog.store()["fAlS"];
 		var cResult = "";
@@ -1158,7 +1158,7 @@ var SetTextOptions_Dialog = {
 			});
 		}
 	},
-
+	
 	fAlS : function (dialog) {
 		var fontResult = dialog.store()["fAlS"];
 		var cResult = "";
@@ -1193,7 +1193,7 @@ var SetTextOptions_Dialog = {
 	},
 	fOth : function (dialog) {
 		var cResult = dialog.store()["fOtS"];
-
+		
 		if (cResult === "") {
 			this.bDefSize = this.bDefSizeSheet;
 			this.fOthTest = false;
@@ -1220,10 +1220,10 @@ var SetTextOptions_Dialog = {
 			});
 		}
 	},
-
+	
 	fOtS : function (dialog) {
 		var cResult = dialog.store()["fOtS"].replace(/\s+/g, "");
-
+		
 		if (cResult === "") {
 			this.bDefSize = this.bDefSizeSheet;
 			this.fOthTest = false;
@@ -1480,7 +1480,7 @@ var Multiclassing_Dialog = {
 			"rClN" : true,
 		});
 	},
-
+	
 	description : {
 		name : "Choose Which Class to Level Up",
 		elements : [{
@@ -1822,7 +1822,7 @@ var BookMarkList = {
 	"SSfront" : "spells.name.0",
 	"SSmore" : "spells.name.0", //maak dit hetzelfde als SSfront, zodat het gedetecteerd wordt alsof deze zichtbaar is wanneer SSfront zichtbaar is en er vervolgens alleen clones worden toegevoegd i.p.v. het origineel
 	"PRsheet" : "PRsheet.toFocus",
-
+	
 	"CSfront_Bookmarks" : tDoc.bookmarkRoot.children[0].children[0],
 	"CSback_Bookmarks" : tDoc.bookmarkRoot.children[0].children[1],
 	"ASfront_Bookmarks" : tDoc.bookmarkRoot.children[0].children[2],
@@ -1834,7 +1834,7 @@ var BookMarkList = {
 	"SSfront_Bookmarks" : tDoc.bookmarkRoot.children[0].children[8],
 	"ALlog_Bookmarks" : tDoc.bookmarkRoot.children[0].children[9],
 	"PRsheet_Bookmarks" : tDoc.bookmarkRoot.children[0].children[10],
-
+	
 	"Character sheet front" : !typePF ? "Text.Level" : "Show Buttons",
 	"Level / Character Attributes" : "Character Level",
 	"Character Information" : "PC Name.0",
@@ -1855,7 +1855,7 @@ var BookMarkList = {
 	"Attacks / Actions" : "Attack.1.Weapon Selection",
 	"Actions" : "Action 1",
 	"Attacks " : "Attack.1.Weapon Selection",
-
+	
 	"Character sheet back" : !typePF ? "Text.Header.Features" : "Background Menu",
 	"Features " : "Text.Header.Features",
 	"Racial Traits" : "Racial Traits",
@@ -1871,7 +1871,7 @@ var BookMarkList = {
 	"Feats" : !typePF ? "Feat Name 1" : "Feat Name 1.1",
 	"Equipment" : "Adventuring Gear Row 1",
 	"Coins, Gems, and other Valuables" : "Valuables1",
-
+	
 	"Additional sheet" : !typePF ? "Text.Header.Status.1" : "Extra.Notes.1",
 	"Additional sheet_template" : "ASfront",
 	"Status" : "Text.Header.Status.1",
@@ -1883,7 +1883,7 @@ var BookMarkList = {
 	"Magic Items" : "Extra.Magic Item 1.1",
 	"Extra Equipment" : "Extra.Gear Row 1.1",
 	"Other Holdings" : "Extra.Other Holdings.1",
-
+	
 	"Overflow sheet" : "Extra.Magic Item " + (FieldNumbers.magicitemsD + 1) + ".1",
 	"Overflow sheet_template" : "ASoverflow",
 	"Magic Items " : "Extra.Magic Item " + (FieldNumbers.magicitemsD + 1) + ".1",
@@ -1891,7 +1891,7 @@ var BookMarkList = {
 	"Limited Features " : "Limited Feature 9.1",
 	"Actions " : "Action " + (FieldNumbers.trueactions - 5) + ".1",
 	"Proficiencies " : "MoreProficiencies.1",
-
+	
 	"Background sheet" :  !typePF ? "Text.Header.Background2.1" : "Sex.1",
 	"Background sheet_template" : "ASbackgr",
 	"Character Description" : "Sex.1",
@@ -1903,7 +1903,7 @@ var BookMarkList = {
 	"Allies & Organizations" :  !typePF ? "Symbol.1" : "Background_Organisation.Left.1",
 	"Organization Symbol" : "Symbol.1",
 	"Lifestyle" : "Lifestyle.1",
-
+	
 	"Companion sheet" : "Companion.Options.1",
 	"Companion sheet_template" : "AScomp",
 	"Descriptive Header" : "Comp.Type.1",
@@ -1920,21 +1920,21 @@ var BookMarkList = {
 	"Proficiency Bonus" : "Comp.Use.Proficiency Bonus.1",
 	"Traits" : "Comp.Use.Traits.1",
 	"Notes " : "Cnote.Left.1",
-
+	
 	"Notes sheet" : "Notes.Left.1",
 	"Notes sheet_template" : "ASnotes",
 	"Notes" : "Notes.Left.1",
-
+	
 	"Wild Shapes" : "Wildshapes.Settings.1",
 	"Wild Shapes_template" : "WSfront",
 	"Wild Shape 1" : "Wildshape.Race.1.1",
 	"Wild Shape 2" : "Wildshape.Race.2.1",
 	"Wild Shape 3" : "Wildshape.Race.3.1",
 	"Wild Shape 4" : "Wildshape.Race.4.1",
-
+	
 	"Spell Sheets" : "spells.name.0",
 	"Spell Sheets_template" : "SSfront",
-
+	
 	"Adventurers Logsheet" : "AdvLog.Options.1",
 	"Adventurers Logsheet_template" : "ALlog",
 	"Logsheet Entry 1" : "Text.AdvLog.1.1",
@@ -1944,7 +1944,7 @@ var BookMarkList = {
 	"Logsheet Entry 5" : "Text.AdvLog.5.1",
 	"Logsheet Entry 6" : "Text.AdvLog.6.1",
 	"Logsheet Entry 7" : "Text.AdvLog.7.1",
-
+	
 	"Reference Sheet" : "PRsheet.toFocus.1",
 	"Reference Sheet_template" : "PRsheet",
 };
