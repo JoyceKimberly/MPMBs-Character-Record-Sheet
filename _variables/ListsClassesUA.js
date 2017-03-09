@@ -2350,7 +2350,7 @@ ClassSubList["horizon conclave"] = {
 };
 ClassSubList["horizon conclave"].features["subclassfeature3"].spellcastingExtra[100] = "AddToKnown";
 ClassList.rangerua.subclasses[1].push("horizon conclave");
-ClassSubList["horizon walker"] = eval(ClassSubList["horizon conclave"].toSource());
+ClassSubList["horizon walker"] = eval($.extend({}, ClassSubList["horizon conclave"]));
 delete ClassSubList["horizon walker"].attacks;
 ClassSubList["horizon walker"].subname = "Horizon Walker";
 ClassSubList["horizon walker"].fullname = "Horizon Walker";
