@@ -24,29 +24,11 @@ function Uneditable(field) {
 };
 
 function Value(field, FldValue, tooltip) {
-/*
 	if (!tDoc.getField(field)) return false;
 	tDoc.getField(field).value = FldValue;
 	if (tooltip !== undefined) {
 		tDoc.getField(field).userName = tooltip;
 	}
-*/
-  var ele = document.getElementsByName(field)[0];
-
-  if (!ele) {
-    console.log(field + " -> " + JSON.stringify(FldValue) );
-    return false;
-  };
-  if ( ele.classList.contains('number') ) {
-    ele.value = +(FldValue);
-
-  } else {
-    ele.value = FldValue;
-  };
-
-  if ( tooltip !== undefined ) {
-    ele.setAttribute('title', tooltip);
-  };
 };
 
 function What(field) {
