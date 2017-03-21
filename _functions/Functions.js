@@ -3579,16 +3579,16 @@ function SetWeaponsdropdown() {
 	
 	for (var i = 1; i <= FieldNumbers.attacks; i++) {
 		var theFld = "Attack." + i + ".Weapon Selection";
-		if (tDoc.getField(theFld).submitName === setweapons.toSource()) continue; //no changes, so no reason to set this field
-		tDoc.getField(theFld).submitName = setweapons.toSource();
+		if (tDoc.getField(theFld).submitName === $.extend({}, setweapons)) continue; //no changes, so no reason to set this field
+		tDoc.getField(theFld).submitName = $.extend({}, setweapons);
 		var theFldVal = What(theFld);
 		tDoc.getField(theFld).setItems(setweapons);
 		Value(theFld, theFldVal, string);
 	};
 	for (var c = 1; c <= 3; c++) {
 		theFld = "Comp.Use.Attack." + c + ".Weapon Selection";
-		if (tDoc.getField(theFld).submitName === setweapons.toSource()) continue; //no changes, so no reason to set this field
-		tDoc.getField(theFld).submitName = setweapons.toSource();
+		if (tDoc.getField(theFld).submitName === $.extend({}, setweapons)) continue; //no changes, so no reason to set this field
+		tDoc.getField(theFld).submitName = $.extend({}, setweapons);
 		theFldVal = What(theFld);
 		tDoc.getField(theFld).setItems(setweapons);
 		Value(theFld, theFldVal, string);
