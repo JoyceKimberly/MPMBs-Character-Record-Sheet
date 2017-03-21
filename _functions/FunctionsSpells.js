@@ -501,7 +501,7 @@ function SetSpellSheetElement(target, type, suffix, caster, hidePrepared, isPsio
 		
 		if (caster && CurrentSpells[caster]) {
 			var spCast = CurrentSpells[caster];
-			isPsionics = isPsionics || (spCast.factor && spCast.factor[1].match(/psionics/i);
+			isPsionics = isPsionics || (spCast.factor && spCast.factor[1].match(/psionics/i));
 			var casterName = spCast.name.replace(/book of /i, "").replace(/ (\(|\[).+?(\)|\])/g, "");
 			casterName = casterName + (casterName.length >= testLength || casterName.match(/\b(spells|powers|psionics)\b/i) ? "" : isPsionics ? " Psionics" : " Spells");
 			if (What(headerArray[2]) !== caster) { //if the header was not already set to the class
