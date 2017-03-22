@@ -5181,13 +5181,8 @@ function isSpellUsed(spll) {
 					break;
 				};
 			};
-<<<<<<< HEAD
-			if (rtrnA.indexOf(aClass) === -1 && SpellsList[spll].level && sClass.typeSp.match(/list/i)) {
-				var spObj = eval($.extend({}, sClass.list));
-=======
 			if (rtrnA.indexOf(aClass) === -1 && SpellsList[spll].level && (/list/i).test(sClass.typeSp)) {
-				var spObj = eval(sClass.list.toSource());
->>>>>>> morepurplemorebetter/master
+				var spObj = eval($.extend({}, sClass.list));
 				spObj.level = [1, 9];
 				var theSpList = CreateSpellList(spObj);
 				if (theSpList.indexOf(spll) !== -1) rtrnA.push(aClass);
