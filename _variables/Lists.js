@@ -1,6 +1,6 @@
-var typePF = tDoc.info.SheetType.search(/printer friendly/i) !== -1;
-var typeA4 = tDoc.info.SheetType.search(/a4/i) !== -1;
-var typeLR = tDoc.info.SheetType.search(/letter/i) !== -1;
+var typePF = (/printer friendly/i).test(tDoc.info.SheetType);
+var typeA4 = (/a4/i).test(tDoc.info.SheetType);
+var typeLR = (/letter/i).test(tDoc.info.SheetType);
 var minVer = tDoc.info.SpellsOnly || tDoc.info.AdvLogOnly;
 var isWindows = app.platform === "WIN";
 
@@ -1138,7 +1138,7 @@ var SetTextOptions_Dialog = {
 	//do this whenever a number is entered to make sure it has a dot as decimal separator and not trailing zeroes
 	sOSi : function (dialog) {
 		var cResult = dialog.store()["sOSi"];
-		if (isNaN(cResult) && cResult.match(/,/)) {
+		if (isNaN(cResult) && (/,/).test(cResult)) {
 			var Parsed = parseFloat(cResult.replace(/,/, "."));
 		} else {
 			var Parsed = parseFloat(cResult);
