@@ -3838,7 +3838,7 @@ function ParseSpellMenu() {
 	allSpellCasters = allSpellCasters.concat(moreSpellCasters);
 	
 	//now see if this newly created list matches the known caster classes
-	if (AllCasterClasses && $.extend({}, AllCasterClasses) === $.extend({}, allSpellCasters)) {
+	if (AllCasterClasses && JSON.stringify(AllCasterClasses) === JSON.stringify(allSpellCasters)) {
 		return AddSpellsMenu;
 	} else {
 		AllCasterClasses = allSpellCasters;
@@ -3872,7 +3872,7 @@ function ParseSpellMenu() {
 	var spellsMenuArray = [AllSpellsMenu];
 	
 	//now to do something that makes it possible to copy this object multiple times
-	var menuString = $.extend({}, AllSpellsMenu);
+	var menuString = JSON.stringify(AllSpellsMenu);
 	
 	var menuExtraTypes = [
 		["with a Checkbox", "checkbox"],
@@ -3941,7 +3941,7 @@ function ParsePsionicsMenu() {
 	allPsionicists = allPsionicists.concat(morePsionicists);
 	
 	//now see if this newly created list matches the known caster classes
-	if (AllPsionicClasses && $.extend({}, AllPsionicClasses) === $.extend({}, allPsionicists)) {
+	if (AllPsionicClasses && JSON.stringify(AllPsionicClasses) === JSON.stringify(allPsionicists)) {
 		return AddPsionicsMenu;
 	} else {
 		AllPsionicClasses = allPsionicists;
@@ -5182,7 +5182,7 @@ function isSpellUsed(spll) {
 				};
 			};
 			if (rtrnA.indexOf(aClass) === -1 && SpellsList[spll].level && (/list/i).test(sClass.typeSp)) {
-				var spObj = eval($.extend({}, sClass.list));
+				var spObj = eval(JSON.stringify(sClass.list));
 				spObj.level = [1, 9];
 				var theSpList = CreateSpellList(spObj);
 				if (theSpList.indexOf(spll) !== -1) rtrnA.push(aClass);

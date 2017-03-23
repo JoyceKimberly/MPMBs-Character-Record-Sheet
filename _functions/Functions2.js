@@ -1395,8 +1395,8 @@ function SetWildshapeDropdown() {
 	theList.unshift("");
 	if (!typePF) theList.unshift("Make a Selection");
 
-	if (tDoc.getField("Wildshapes.Settings").submitName === $.extend({}, theList)) return; //no changes, so no reason to do this
-	tDoc.getField("Wildshapes.Settings").submitName = $.extend({}, theList);
+	if (tDoc.getField("Wildshapes.Settings").submitName === JSON.stringify(theList)) return; //no changes, so no reason to do this
+	tDoc.getField("Wildshapes.Settings").submitName = JSON.stringify(theList);
 
 	var theString = "Type (or select) the name of the creature you want to calculate a Wild Shape for.";
 	theString += "\n\n" + toUni("Not auto-updated") + "\nThe generated stats will not auto-update once you change something on the first page! They will only update when your druid level changes. You can have them re-calculated using the \"Wild Shape Options\" button at the top of this page.";
@@ -1437,8 +1437,8 @@ function SetCompDropdown() {
 	
 	theList = theList.concat(theListC);
 
-	if (tDoc.getField("Companion.Remember").submitName === $.extend({}, theList)) return; //no changes, so no reason to do this
-	tDoc.getField("Companion.Remember").submitName = $.extend({}, theList);
+	if (tDoc.getField("Companion.Remember").submitName === JSON.stringify(theList)) return; //no changes, so no reason to do this
+	tDoc.getField("Companion.Remember").submitName = JSON.stringify(theList);
 
 	var theString = "Type (or select) the name of the race you want to have on this page. Note that first a list of player races is given, followed by an alphabetical list of creatures. You are not limited by the names in the list. Just typing \"Drow\" will also be recognized, for example.";
 	theString += "\n\n" + toUni("Selecting a creature") + "\nAll information of the creature will automatically be added. This includes ability scores, proficiencies, senses, weapons, etc. You can change the things afterwards.\nBecause not all creatures need the same amount of space for all their feature text,some fields may overflow. You can manually edit these fields so that everything is visible when printed (e.g. move things to the \"Noted\" below).";
@@ -1597,7 +1597,7 @@ function CompOptions() {
 			} else if (MenuSelection[1] === "comp.eqp") {
 				toShow[1] = !toShow[1];
 			}
-			Value(prefix + "Companion.Layers.Remember", $.extend({}, toShow));
+			Value(prefix + "Companion.Layers.Remember", JSON.stringify(toShow));
 			ShowCompanionLayer(prefix);
 		} else {
 			if (MenuSelection[0] === "change" && MenuSelection[1] === "reset") {
@@ -3113,7 +3113,7 @@ function MakeNotesMenu_NotesOptions() {
 			toShow[0] = !toShow[0];
 		 case "comp.eqp" :
 			if (MenuSelection[0] === "comp.eqp") toShow[1] = !toShow[1];
-			Value(prefix + "Companion.Layers.Remember", $.extend({}, toShow));
+			Value(prefix + "Companion.Layers.Remember", JSON.stringify(toShow));
 			ShowCompanionLayer(prefix);
 			break;
 		}
@@ -3601,15 +3601,15 @@ function GetStringifieds(notSources) {
 //set all stringified variables into their fields
 function SetStringifieds(type) {
 	if (!type || type === "spells") {
-		var cSpells = $.extend({}, CurrentSpells);
-		var cCasters = $.extend({}, CurrentCasters);
+		var cSpells = JSON.stringify(CurrentSpells);
+		var cCasters = JSON.stringify(CurrentCasters);
 		Value("CurrentSpells.Stringified", cSpells + "##########" + cCasters);
 		
 		//any time the CurrentSpells variable is changed, we need to update the CurrentWeapons variable as well
 		FindWeapons();
 	}
-	if (!type || type === "sources") Value("CurrentSources.Stringified", $.extend({}, CurrentSources));
-	if (!type || type === "evals") Value("CurrentEvals.Stringified", $.extend({}, CurrentEvals));
+	if (!type || type === "sources") Value("CurrentSources.Stringified", JSON.stringify(CurrentSources));
+	if (!type || type === "evals") Value("CurrentEvals.Stringified", JSON.stringify(CurrentEvals));
 }
 
 //remove the empty values from an array (removes all things that are considered false, such as 0, "", undefined, false)
@@ -5611,7 +5611,7 @@ function PatreonStatement() {
 			
 			app.execDialog(PatreonDialog);
 			//reset the counter
-			tDoc.getField("SaveIMG.Patreon").submitName = $.extend({}, new Date());
+			tDoc.getField("SaveIMG.Patreon").submitName = JSON.stringify(new Date());
 		};
 	} catch (e) {};
 }

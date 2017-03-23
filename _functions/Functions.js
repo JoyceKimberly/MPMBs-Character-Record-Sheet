@@ -2419,7 +2419,7 @@ function FindClasses(Event) {
 	var primeClass = "";
 	
 	//put the old classes.known in classes.old so the differences in level can be queried
-	var oldClassesString = $.extend({}, classes.old);
+	var oldClassesString = JSON.stringify(classes.old);
 	var oldClasses = eval(oldClassesString);
 	var goDeleteUSS = true;
 	classes.old = {};
@@ -2927,7 +2927,7 @@ function ApplyClasses(inputclasstxt, inputlevel) {
 	//put hit dice on sheet
 	
 	UpdateLevelFeatures("class");
-	if ($.extend({}, IsSubclassException) === "({})") {
+	if (JSON.stringify(IsSubclassException) === "({})") {
 		AddAttacksPerAction(); //update number of attacks
 		ApplyProficiencies(true); //call to update armor, shield and weapon proficiencies
 		UpdateTooltips(); //skills tooltip, ability score tooltip
@@ -3579,16 +3579,16 @@ function SetWeaponsdropdown() {
 	
 	for (var i = 1; i <= FieldNumbers.attacks; i++) {
 		var theFld = "Attack." + i + ".Weapon Selection";
-		if (tDoc.getField(theFld).submitName === $.extend({}, setweapons)) continue; //no changes, so no reason to set this field
-		tDoc.getField(theFld).submitName = $.extend({}, setweapons);
+		if (tDoc.getField(theFld).submitName === JSON.stringify(setweapons)) continue; //no changes, so no reason to set this field
+		tDoc.getField(theFld).submitName = JSON.stringify(setweapons);
 		var theFldVal = What(theFld);
 		tDoc.getField(theFld).setItems(setweapons);
 		Value(theFld, theFldVal, string);
 	};
 	for (var c = 1; c <= 3; c++) {
 		theFld = "Comp.Use.Attack." + c + ".Weapon Selection";
-		if (tDoc.getField(theFld).submitName === $.extend({}, setweapons)) continue; //no changes, so no reason to set this field
-		tDoc.getField(theFld).submitName = $.extend({}, setweapons);
+		if (tDoc.getField(theFld).submitName === JSON.stringify(setweapons)) continue; //no changes, so no reason to set this field
+		tDoc.getField(theFld).submitName = JSON.stringify(setweapons);
 		theFldVal = What(theFld);
 		tDoc.getField(theFld).setItems(setweapons);
 		Value(theFld, theFldVal, string);
@@ -3618,8 +3618,8 @@ function SetArmordropdown() {
 	};
 	if (TheList.indexOf("Plate") !== TheList.length - 1) TheList.splice(TheList.indexOf("Plate") + 1, 0, "")
 
-	if (tDoc.getField("AC Armor Description").submitName === $.extend({}, TheList)) return; //no changes, so no reason to do this
-	tDoc.getField("AC Armor Description").submitName = $.extend({}, TheList);
+	if (tDoc.getField("AC Armor Description").submitName === JSON.stringify(TheList)) return; //no changes, so no reason to do this
+	tDoc.getField("AC Armor Description").submitName = JSON.stringify(TheList);
 
 	var theFldVal = What("AC Armor Description");
 	tDoc.getField("AC Armor Description").setItems(TheList);
@@ -3647,8 +3647,8 @@ function SetBackgrounddropdown() {
 		}
 	};
 	ArrayDing.sort();
-	if (tDoc.getField("Background").submitName === $.extend({}, ArrayDing)) return; //no changes, so no reason to do this
-	tDoc.getField("Background").submitName = $.extend({}, ArrayDing);
+	if (tDoc.getField("Background").submitName === JSON.stringify(ArrayDing)) return; //no changes, so no reason to do this
+	tDoc.getField("Background").submitName = JSON.stringify(ArrayDing);
 	var theFldVal = What("Background");
 	tDoc.getField("Background").setItems(ArrayDing);
 	Value("Background", theFldVal, tempString);
@@ -3674,8 +3674,8 @@ function SetRacesdropdown() {
 		}
 	}
 	ArrayDing.sort();
-	if (tDoc.getField("Race").submitName === $.extend({}, ArrayDing)) return; //no changes, so no reason to do this
-	tDoc.getField("Race").submitName = $.extend({}, ArrayDing);
+	if (tDoc.getField("Race").submitName === JSON.stringify(ArrayDing)) return; //no changes, so no reason to do this
+	tDoc.getField("Race").submitName = JSON.stringify(ArrayDing);
 	var theFldVal = What("Race");
 	tDoc.getField("Race").setItems(ArrayDing);
 	Value("Race", theFldVal, tempString);
@@ -3790,9 +3790,9 @@ function MakeInventoryMenu() {
 	menuLVL2(toolMenu, "toolmenu", toolArray, "tool");
 	
 	var menuStringsArray = [
-		["Pack", $.extend({}, packMenu)],
-		["Gear", $.extend({}, gearMenu)],
-		["Tool", $.extend({}, toolMenu)],
+		["Pack", JSON.stringify(packMenu)],
+		["Gear", JSON.stringify(gearMenu)],
+		["Tool", JSON.stringify(toolMenu)],
 	];
 
 	var menuExtraTypes = [["To left column", "left"]];
@@ -5357,8 +5357,8 @@ function SetFeatsdropdown() {
 	}
 	ArrayDing.sort();
 
-	if (tDoc.getField("Feat Name 1").submitName === $.extend({}, ArrayDing)) return; //no changes, so no reason to do this
-	tDoc.getField("Feat Name 1").submitName = $.extend({}, ArrayDing);
+	if (tDoc.getField("Feat Name 1").submitName === JSON.stringify(ArrayDing)) return; //no changes, so no reason to do this
+	tDoc.getField("Feat Name 1").submitName = JSON.stringify(ArrayDing);
 
 	for (var i = 1; i <= FieldNumbers.feats; i++) {
 		tDoc.getField("Feat Name " + i).setItems(ArrayDing);
@@ -9219,8 +9219,8 @@ function SetBackgroundFeaturesdropdown() {
 	};
 	tempArray.sort();
 
-	if (tDoc.getField("Background Feature").submitName === $.extend({}, tempArray)) return; //no changes, so no reason to do this
-	tDoc.getField("Background Feature").submitName = $.extend({}, tempArray);
+	if (tDoc.getField("Background Feature").submitName === JSON.stringify(tempArray)) return; //no changes, so no reason to do this
+	tDoc.getField("Background Feature").submitName = JSON.stringify(tempArray);
 
 	var theFldVal = What("Background Feature");
 	tDoc.getField("Background Feature").setItems(tempArray);

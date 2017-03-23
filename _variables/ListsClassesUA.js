@@ -2350,7 +2350,7 @@ ClassSubList["horizon conclave"] = {
 };
 ClassSubList["horizon conclave"].features["subclassfeature3"].spellcastingExtra[100] = "AddToKnown";
 ClassList.rangerua.subclasses[1].push("horizon conclave");
-ClassSubList["horizon walker"] = eval($.extend({}, ClassSubList["horizon conclave"]));
+ClassSubList["horizon walker"] = eval(JSON.stringify(ClassSubList["horizon conclave"]));
 delete ClassSubList["horizon walker"].attacks;
 ClassSubList["horizon walker"].subname = "Horizon Walker";
 ClassSubList["horizon walker"].fullname = "Horizon Walker";
@@ -2411,7 +2411,7 @@ ClassSubList["primeval guardian conclave"] = {
 };
 ClassSubList["primeval guardian conclave"].features["subclassfeature3"].spellcastingExtra[100] = "AddToKnown";
 ClassList.rangerua.subclasses[1].push("primeval guardian conclave");
-ClassSubList["primeval guardian"] = eval($.extend({}, ClassSubList["primeval guardian conclave"]));
+ClassSubList["primeval guardian"] = eval(JSON.stringify(ClassSubList["primeval guardian conclave"]));
 delete ClassSubList["primeval guardian"].attacks;
 ClassSubList["primeval guardian"].subname = "Primeval Guardian";
 ClassSubList["primeval guardian"].fullname = "Primeval Guardian";
@@ -3081,7 +3081,7 @@ function UAstartupCode() {
 		var aDomain = ClassList.cleric.subclasses[1][i];
 		if (ClassSubList[aDomain] && ClassSubList[aDomain].spellcastingExtra) {
 			var cDomain = ClassSubList[aDomain];
-			var eSpells = eval($.extend({}, cDomain.spellcastingExtra));
+			var eSpells = eval(JSON.stringify(cDomain.spellcastingExtra));
 			eSpells[100] = "AddToKnown";
 			FSfeat.choices.push(cDomain.subname);
 			FSfeat[cDomain.subname.toLowerCase()] = {
@@ -3094,7 +3094,7 @@ function UAstartupCode() {
 	};
 	
 	//Warlock (the Seeker): add the "Pact Boon" feature from the Warlock class, with one addition, to the subclass
-	var PBfeat = $.extend({}, ClassList.warlock.features["pact boon"]);
+	var PBfeat = JSON.stringify(ClassList.warlock.features["pact boon"]);
 	ClassSubList["the seeker"].features["pact boon"] = eval(PBfeat);
 	ClassSubList["the seeker"].features["pact boon"].choices.push("Pact of the Star Chain");
 	ClassSubList["the seeker"].features["pact boon"].choices.sort();
@@ -3168,14 +3168,14 @@ function UAstartupCode() {
 			var dFea = aDomain.features[aFea];
 			if (dFea.minlevel === 2 && (/channel divinity/i).test(dFea.name)) {
 				MTfeat["subclassfeature2.3"].choices.push(aDomain.subname);
-				MTfeat["subclassfeature2.3"][aDomain.subname.toLowerCase()] = eval($.extend({}, dFea));
+				MTfeat["subclassfeature2.3"][aDomain.subname.toLowerCase()] = eval(JSON.stringify(dFea));
 				MTfeat["subclassfeature2.3"][aDomain.subname.toLowerCase()].name = MTfeat["subclassfeature2.3"][aDomain.subname.toLowerCase()].name.replace(/channel divinity/i, "Channel Arcana");
 				AIdomain.eval += "var ToAdd = [\"wizard\", \"subclassfeature2.3\", \"" + aDomain.subname.toLowerCase() + "\"]; if (classes.known.wizard.level >= 2 && this.getField(\"Class Features Remember\").value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)}; ";
 			};
 			if (dFea.minlevel === 1 && !dFea.armor && !dFea.weapons) {
 				if (MTfeat["subclassfeature6"].choices.indexOf(aDomain.subname) === -1) { //if the entry does not exist yet
 					MTfeat["subclassfeature6"].choices.push(aDomain.subname);
-					MTfeat["subclassfeature6"][aDomain.subname.toLowerCase()] = eval($.extend({}, dFea));
+					MTfeat["subclassfeature6"][aDomain.subname.toLowerCase()] = eval(JSON.stringify(dFea));
 					AIdomain.eval += "var ToAdd = [\"wizard\", \"subclassfeature6\", \"" + aDomain.subname.toLowerCase() + "\"]; if (classes.known.wizard.level >= 6 && this.getField(\"Class Features Remember\").value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)}; ";
 				} else { //add to the existing entry
 					var theFea = MTfeat["subclassfeature6"][aDomain.subname.toLowerCase()];
@@ -3189,7 +3189,7 @@ function UAstartupCode() {
 			if (dFea.minlevel === 6 && !dFea.armor && !dFea.weapons) {
 				if (MTfeat["subclassfeature10"].choices.indexOf(aDomain.subname) === -1) { //if the entry does not exist yet
 					MTfeat["subclassfeature10"].choices.push(aDomain.subname);
-					MTfeat["subclassfeature10"][aDomain.subname.toLowerCase()] = eval($.extend({}, dFea));
+					MTfeat["subclassfeature10"][aDomain.subname.toLowerCase()] = eval(JSON.stringify(dFea));
 					AIdomain.eval += "var ToAdd = [\"wizard\", \"subclassfeature10\", \"" + aDomain.subname.toLowerCase() + "\"]; if (classes.known.wizard.level >= 10 && this.getField(\"Class Features Remember\").value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)}; ";
 				} else { //add to the existing entry
 					var theFea = MTfeat["subclassfeature10"][aDomain.subname.toLowerCase()];
@@ -3203,7 +3203,7 @@ function UAstartupCode() {
 			if (dFea.minlevel === 17 && !dFea.armor && !dFea.weapons) {
 				if (MTfeat["subclassfeature14"].choices.indexOf(aDomain.subname) === -1) { //if the entry does not exist yet
 					MTfeat["subclassfeature14"].choices.push(aDomain.subname);
-					MTfeat["subclassfeature14"][aDomain.subname.toLowerCase()] = eval($.extend({}, dFea));
+					MTfeat["subclassfeature14"][aDomain.subname.toLowerCase()] = eval(JSON.stringify(dFea));
 					AIdomain.eval += "var ToAdd = [\"wizard\", \"subclassfeature14\", \"" + aDomain.subname.toLowerCase() + "\"]; if (classes.known.wizard.level >= 14 && this.getField(\"Class Features Remember\").value.indexOf(ToAdd.toString()) === -1) {ClassFeatureOptions(ToAdd)}; ";
 				} else { //add to the existing entry
 					var theFea = MTfeat["subclassfeature14"][aDomain.subname.toLowerCase()];
