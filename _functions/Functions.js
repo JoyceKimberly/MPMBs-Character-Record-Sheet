@@ -2402,6 +2402,7 @@ function ParseClass(tempString) {
 
 //detects classes entered and parses information to global classes variable
 function FindClasses(Event) {
+console.log(Event);
 	if (Event === undefined) {
 		classes.field = What("Class and Levels");
 	};
