@@ -2420,7 +2420,7 @@ function FindClasses(Event) {
 	
 	//put the old classes.known in classes.old so the differences in level can be queried
 	var oldClassesString = JSON.stringify(classes.old);
-	var oldClasses = eval(oldClassesString);
+	var oldClasses = JSON.parse(oldClassesString);
 	var goDeleteUSS = true;
 	classes.old = {};
 	classes.oldspellcastlvl = classes.spellcastlvl;
