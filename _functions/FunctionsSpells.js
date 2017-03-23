@@ -5182,7 +5182,7 @@ function isSpellUsed(spll) {
 				};
 			};
 			if (rtrnA.indexOf(aClass) === -1 && SpellsList[spll].level && (/list/i).test(sClass.typeSp)) {
-				var spObj = eval(JSON.stringify(sClass.list));
+				var spObj = JSON.parse(JSON.stringify(sClass.list));
 				spObj.level = [1, 9];
 				var theSpList = CreateSpellList(spObj);
 				if (theSpList.indexOf(spll) !== -1) rtrnA.push(aClass);
