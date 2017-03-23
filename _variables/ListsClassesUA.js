@@ -3095,7 +3095,7 @@ function UAstartupCode() {
 	
 	//Warlock (the Seeker): add the "Pact Boon" feature from the Warlock class, with one addition, to the subclass
 	var PBfeat = JSON.stringify(ClassList.warlock.features["pact boon"]);
-	ClassSubList["the seeker"].features["pact boon"] = eval(PBfeat);
+	ClassSubList["the seeker"].features["pact boon"] = JSON.parse(PBfeat);
 	ClassSubList["the seeker"].features["pact boon"].choices.push("Pact of the Star Chain");
 	ClassSubList["the seeker"].features["pact boon"].choices.sort();
 	ClassSubList["the seeker"].features["pact boon"]["pact of the star chain"] = {
