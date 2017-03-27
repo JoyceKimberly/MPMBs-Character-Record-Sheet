@@ -5358,10 +5358,10 @@ function SetFeatsdropdown() {
 		ArrayDing.push(FeatsList[key].name);
 	}
 	ArrayDing.sort();
-
+	
 	if (tDoc.getField("Feat Name 1").submitName === JSON.stringify(ArrayDing)) return; //no changes, so no reason to do this
 	tDoc.getField("Feat Name 1").submitName = JSON.stringify(ArrayDing);
-
+	
 	for (var i = 1; i <= FieldNumbers.feats; i++) {
 		tDoc.getField("Feat Name " + i).setItems(ArrayDing);
 		AddTooltip("Feat Name " + i, "Type in the name of the feat (or select it from the drop-down menu) and its text and features will be filled out automatically, provided it is a recognized feat. Ability scores will not be altered other than their tool tips (mouseover texts).\n\nUpon changing to another feat, all features of the previous feat will be undone.");
@@ -9238,7 +9238,7 @@ function SetBackgroundFeaturesdropdown() {
 
 	if (tDoc.getField("Background Feature").submitName === JSON.stringify(tempArray)) return; //no changes, so no reason to do this
 	tDoc.getField("Background Feature").submitName = JSON.stringify(tempArray);
-
+	
 	var theFldVal = What("Background Feature");
 	tDoc.getField("Background Feature").setItems(tempArray);
 	Value("Background Feature", theFldVal, string);
