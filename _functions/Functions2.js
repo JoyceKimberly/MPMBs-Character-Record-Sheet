@@ -1439,7 +1439,7 @@ function SetCompDropdown() {
 
 	if (tDoc.getField("Companion.Remember").submitName === JSON.stringify(theList)) return; //no changes, so no reason to do this
 	tDoc.getField("Companion.Remember").submitName = JSON.stringify(theList);
-
+	
 	var theString = "Type (or select) the name of the race you want to have on this page. Note that first a list of player races is given, followed by an alphabetical list of creatures. You are not limited by the names in the list. Just typing \"Drow\" will also be recognized, for example.";
 	theString += "\n\n" + toUni("Selecting a creature") + "\nAll information of the creature will automatically be added. This includes ability scores, proficiencies, senses, weapons, etc. You can change the things afterwards.\nBecause not all creatures need the same amount of space for all their feature text,some fields may overflow. You can manually edit these fields so that everything is visible when printed (e.g. move things to the \"Noted\" below).";
 	theString += "\n\n" + toUni("Selecting a player race") + "\nAll the same things as selecting a player race on the first page will happen, with the exception that no limited feature or ability DC is added as there is no room for that."
