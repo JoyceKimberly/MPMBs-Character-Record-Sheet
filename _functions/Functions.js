@@ -3583,7 +3583,7 @@ function SetWeaponsdropdown() {
 		tDoc.getField(theFld).submitName = JSON.stringify(setweapons);
 		var theFldVal = What(theFld);
 		tDoc.getField(theFld).setItems(setweapons);
-		Value(theFld, theFldVal, string);
+		if (theFldVal !== What(theFld)) Value(theFld, theFldVal, string);
 	};
 	for (var c = 1; c <= 3; c++) {
 		theFld = "Comp.Use.Attack." + c + ".Weapon Selection";
