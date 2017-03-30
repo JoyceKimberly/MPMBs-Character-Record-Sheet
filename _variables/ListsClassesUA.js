@@ -3262,7 +3262,7 @@ ClassSubList["ranger-monster slayer"] = {
 };
 ClassSubList["ranger-monster slayer"].features["subclassfeature3"].spellcastingExtra[100] = "AddToKnown";
 ClassList.ranger.subclasses[1].push("ranger-monster slayer");
-ClassSubList["rangerua-monster slayer"] = eval(ClassSubList["ranger-monster slayer"].toSource());
+ClassSubList["rangerua-monster slayer"] = JSON.parse(JSON.stringify(ClassSubList["ranger-monster slayer"]));
 ClassList.rangerua.subclasses[1].push("rangerua-monster slayer");
 
 //a function to run at startup of the sheet to ensure that all of the UA additions work as they should
