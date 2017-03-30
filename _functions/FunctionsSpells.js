@@ -80,6 +80,11 @@ function ParseSpell(input) {
 		var foundLen = 0;
 
 		for (var key in SpellsList) { //scan string for all creatures
+			if (testSource(key, SpellsList[key], "spellsExcl")) continue; //only testing if the source of the class isn't excluded
+			if (input.toLowerCase() === key) {
+				result = key;
+				break;
+			};
 			var toSearch = "\\b(" + clean(SpellsList[key].name).replace(/^\W|\W$/g, "").RegEscape();
 			toSearch += SpellsList[key].nameShort ? "|" + clean(SpellsList[key].nameShort).replace(/^\W|\W$/g, "").RegEscape() : "";
 			toSearch += SpellsList[key].nameAlt ? "|" + clean(SpellsList[key].nameAlt).replace(/^\W|\W$/g, "").RegEscape() : "";
@@ -88,7 +93,7 @@ function ParseSpell(input) {
 			if (key.length > foundLen && toTest.test(input)) {
 				result = key;
 				foundLen = key.length;
-			}
+			};
 		}
 	}
 	return result;
@@ -527,12 +532,13 @@ function SetSpellSheetElement(target, type, suffix, caster, hidePrepared) {
 			tDoc.resetForm(headerArray);
 			var casterName = " ";
 			if (caster) {
-				casterName = caster.replace(/book of | (\(|\[).+?(\)|\])/ig, "").replace(/ (\(|\[).+?(\)|\])/g, "");
-				casterName = casterName + (casterName.length >= testLength || (/\b(spells|powers|psionics)\b/i).test(casterName) ? "" : " Spells");
-				if (ClassList[caster]) {
-					PickDropdown(headerArray[3], ClassList[caster].abilitySave);
-				} else if (ClassSubList[caster]) {
-					PickDropdown(headerArray[3], ClassSubList[caster].abilitySave);
+				var casterObj = ClassList[caster] ? ClassList[caster] : ClassSubList[caster] ? ClassSubList[caster] : false;
+				var isPsionics = casterObj && casterObj.spellcastingFactor && (/psionic/i).test(casterObj.spellcastingFactor);
+				casterName = !casterObj ? caster.capitalize() : (casterObj.fullname ? casterObj.fullname : casterObj.subname ? casterObj.subname : casterObj.name);
+				casterName = casterName.replace(/book of | (\(|\[).+?(\)|\])/ig, "").replace(/ (\(|\[).+?(\)|\])/g, "");
+				casterName = casterName + (casterName.length >= testLength || (/\b(spells|powers|psionics)\b/i).test(casterName) ? "" : isPsionics ? " Psionics" : " Spells");
+				if (casterObj) {
+					PickDropdown(headerArray[3], casterObj.abilitySave);
 				}
 			}
 			Value(headerArray[1], casterName);
@@ -3416,8 +3422,8 @@ function GenerateSpellSheet(GoOn) {
 				}
 			}
 			//now do the psionic talents/disciplines
-			if (i <= 9 && lvl === maxLvl) {
-				i = 10;
+			if (lvl <= 9 && lvl === maxLvl) {
+				lvl = 9;
 				maxLvl = 11;
 				isPsionics = "psionic";
 				MeKn = spCast.firstCol ? "##" + spCast.firstCol : "##pp";
@@ -3860,7 +3866,7 @@ function ParseSpellMenu() {
 			continue;
 		}
 		var aCastClass = aObj && aObj.spellcastingList ? aObj.spellcastingList : {class : aCast, psionic : false};
-		var aCastName = aCast === "any" ? "All spells" : aObj.name + " spells";
+		var aCastName = aCast === "any" ? "All spells" : (aObj.fullname ? aObj.fullname : aObj.subname ? aObj.subname : aObj.name) + " spells";
 		
 		//get a list of all the spells in the class' spell list and sort it
 		var allSpells = CreateSpellList(aCastClass, false);
@@ -4877,7 +4883,7 @@ function GenerateCompleteSpellSheet(thisClass, skipdoGoOn) {
 	
 	//now sort each of those new arrays and put them on the sheet
 	var start = true;
-	for (var lvl = 0; lvl <= orderedSpellList.length; lvl++) {
+	for (var lvl = 0; lvl < orderedSpellList.length; lvl++) {
 		var spArray = orderedSpellList[lvl];
 		var isPsionics = i <= 9 ? "" : "psionic";
 		if (spArray.length > 0) {
