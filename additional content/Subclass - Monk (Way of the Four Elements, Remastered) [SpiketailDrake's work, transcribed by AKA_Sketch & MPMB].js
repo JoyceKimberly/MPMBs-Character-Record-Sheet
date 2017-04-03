@@ -48,7 +48,7 @@ ClassSubList["way of the four elements"].features = {
 		minlevel : 3,
 		description : desc([
 			"I know several Elemental Disciplines, depending on level, that I can use with my ki",
-			"Use the \"Choose Features\" button above to add Elemental Disciplines to the third page", // kan ook weg
+			"Use the \"Choose Features\" button above to add Elemental Disciplines to the third page",
 			"Some Elemental Disciplines give me the ability to cast a spell without material components",
 			"From 5th level onward, I can use additional ki points to increase their spell slot level",
 			"When I gain access to new Elemental Disciplines, I can trade a known one for another"
@@ -259,7 +259,8 @@ ClassSubList["way of the four elements"].features = {
 				selection : ["aganazzar's scorcher"],
 				firstCol : 2
 			},
-			spellFirstColTitle : "Ki"
+			spellFirstColTitle : "Ki",
+			prereqeval : "classes.known.monk.level >= 6"
 		},
 		"mote of the sun (prereq: level 6 monk)" : {
 			name : "Mote of the Sun",
@@ -293,7 +294,8 @@ ClassSubList["way of the four elements"].features = {
 				selection : ["scorching ray"],
 				firstCol : 2
 			},
-			spellFirstColTitle : "Ki"
+			spellFirstColTitle : "Ki",
+			prereqeval : "classes.known.monk.level >= 6"
 		},
 		"swarming ice rabbit (prereq: level 6 monk)" : {
 			name : "Swarming Ice Rabbit",
