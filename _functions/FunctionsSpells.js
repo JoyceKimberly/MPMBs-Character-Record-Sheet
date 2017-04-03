@@ -3897,7 +3897,7 @@ function ParseSpellMenu() {
 	]
 	//add a menu with a changed name 
 	for (var e = 0; e < menuExtraTypes.length; e++) {
-		var aMenu = eval(menuString);
+		var aMenu = JSON.parse(menuString);
 		amendMenu(aMenu, menuExtraTypes[e][0], menuExtraTypes[e][1]);
 		spellsMenuArray.push(aMenu);
 	}
