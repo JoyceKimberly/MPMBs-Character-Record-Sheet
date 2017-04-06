@@ -248,14 +248,14 @@ function AmendRaces() { //a function to create these tiefling alternatives, toge
 		}
 	}].forEach( function(tRace) {
 		//make a new RaceList object for each race
-		RaceList[tRace.objname] = eval(RaceList.tiefling.toSource());
+		RaceList[tRace.objname] = JSON.parse(JSON.stringify(RaceList.tiefling));
 		for (var rFea in tRace) {
 			if ((/objname|replaceTraitTxt|replaceNameTxt/).test(rFea)) continue;
 			RaceList[tRace.objname][rFea] = tRace[rFea];
 		};
 		//now do the variants
 		RaceList[tRace.objname].variants.forEach( function(nVar) {
-			RaceSubList[tRace.objname + "-" + nVar] = eval(RaceSubList["tiefling-" + nVar].toSource());
+			RaceSubList[tRace.objname + "-" + nVar] = JSON.parse(JSON.stringify(RaceSubList["tiefling-" + nVar]));
 			var thisVar = RaceSubList[tRace.objname + "-" + nVar];
 			thisVar.trait = thisVar.trait.replace(tRace.replaceTraitTxt[0], tRace.replaceTraitTxt[1]);
 			thisVar.trait = thisVar.trait.replace(tRace.replaceNameTxt[0].capitalize(), tRace.replaceNameTxt[1].capitalize());
