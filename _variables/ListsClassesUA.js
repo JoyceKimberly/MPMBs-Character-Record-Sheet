@@ -486,7 +486,7 @@ ClassList["spell-less ranger"] = {
 		}
 	}
 };
-ClassSubList["spell-less beast master"] = eval(ClassSubList["beast master"].toSource());
+ClassSubList["spell-less beast master"] = JSON.parse(JSON.stringify(ClassSubList["beast master"]));
 ClassSubList["spell-less beast master"].source = ["UA:MC", 6];
 delete ClassSubList["spell-less beast master"].fullname;
 ClassSubList["spell-less beast master"].regExpSearch = /^(?=.*spell.?less)(?=.*(animal|beast))((?=.*(master|ranger|strider))|((?=.*(nature|natural|green))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i;
@@ -496,7 +496,7 @@ ClassSubList["spell-less beast master"].features["subclassfeature15"] = {
 	minlevel : 15,
 	description : "\n   " + "My companion can, as a reaction, halve an attack's damage from an attacker that I see"
 }
-ClassSubList["spell-less hunter"] = eval(ClassSubList["hunter"].toSource());
+ClassSubList["spell-less hunter"] = JSON.parse(JSON.stringify(ClassSubList["hunter"]));
 ClassSubList["spell-less hunter"].source = ["UA:MC", 6];
 delete ClassSubList["spell-less hunter"].fullname;
 ClassSubList["spell-less hunter"].regExpSearch = /^(?=.*spell.?less)(?!.*(monster|barbarian|bard|cleric|druid|fighter|monk|paladin|rogue|sorcerer|warlock|wizard))(?=.*(hunter|huntress|hunts(wo)?m(e|a)n)).*$/i;
