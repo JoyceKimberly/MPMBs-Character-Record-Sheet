@@ -708,7 +708,7 @@ function OpeningStatement() {
 };
 
 function clean(input, remove) {
-	var charArray = (typeof remove !== "undefined") ? remove : [" ", "-", ".", ",", "\\", "/", ":", ";", "(", ")"];
+	var charArray = (typeof remove !== "undefined") ? remove : [" ", "-", ".", ",", "\\", "/", ":", ";"];
 	while (charArray.indexOf(input[0]) !== -1) {
 		input = input.slice(1);
 	}
