@@ -1387,7 +1387,7 @@ function SetWildshapeDropdown() {
 	for (var key in CreatureList) {
 		if ((CreatureList[key].type === "Beast" && eval(CreatureList[key].challengeRating) <= 6) || key === "air elemental" || key === "earth elemental" ||  key === "fire elemental" || key === "water elemental") {
 			if (testSource(key, CreatureList[key], "creaExcl")) continue;
-			theList.push(CreatureList[key].name);
+			if (theList.indexOf(CreatureList[key].name) === -1) theList.push(CreatureList[key].name);
 		}
 	}
 	theList.sort();
@@ -1431,7 +1431,7 @@ function SetCompDropdown() {
 	var theListC = [""];
 	for (var key in CreatureList) {
 		if (testSource(key, CreatureList[key], "creaExcl")) continue;
-		theListC.push(CreatureList[key].name);
+		if (theListC.indexOf(CreatureList[key].name) === -1) theListC.push(CreatureList[key].name);
 	}
 	theListC.sort();
 	
@@ -3461,6 +3461,7 @@ function MakeIconMenu_IconOptions() {
 			["Rage of Demons icon", "rod"],
 			["Curse of Strahd icon", "cos"],
 			["Storm King's Thunder icon", "skt"],
+			["Tales of the Yawning Portal icon", "totyp"],
 		];
 		IconMenu.push({cName : "-", cReturn : "-"}); // add a divider
 		menuLVL2(IconMenu, ["Set Adventure League season icon", "seasonicon"], classes);
@@ -5926,10 +5927,19 @@ function CalcAttackDmgHit(fldName) {
 			addNum(output[out], "dmg");
 			break;
 		 case "die" :
-			if ((/(B|C)/).test(output[out])) { //if this involves a cantrip calculation
+			if ((/^(?=.*(B|C))(?=.*d\d).*$/).test(output[out])) { //if this involves a cantrip calculation
 				var cLvl = Number(QI ? What("Character Level") : What(prefix + "Comp.Use.HD.Level"));
 				var cDie = cantripDie[Math.min(Math.max(cLvl - 1, 1), 19)];
 				output[out] = output[out].replace(/C/g, cDie).replace(/B/g, cDie - 1).replace(/0.?d\d+/g, 0);
+			};
+			if (output[out][0] == "=") { // a string staring with "=" means it wants to be calculate to values
+				output[out] = output[out].substr(1).split("d").map(function(v) {
+					try {
+						return eval(v);
+					} catch (errV) {
+						return v;
+					};
+				}).join("d");
 			};
 			dmgDie = output[out];
 			break;
