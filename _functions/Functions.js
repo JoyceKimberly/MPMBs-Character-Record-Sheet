@@ -8587,8 +8587,8 @@ function SetAmmosdropdown() {
 	}
 	theDropList.sort();
 	
-	if (tDoc.getField("AmmoLeftDisplay.Name").submitName === theDropList.toSource()) return;
-	tDoc.getField("AmmoLeftDisplay.Name").submitName = theDropList.toSource();
+	if (tDoc.getField("AmmoLeftDisplay.Name").submitName === JSON.stringify(theDropList)) return;
+	tDoc.getField("AmmoLeftDisplay.Name").submitName = JSON.stringify(theDropList);
 	
 	var remAmmo = What("AmmoLeftDisplay.Name");
 	tDoc.getField("AmmoLeftDisplay.Name").setItems(theDropList);
