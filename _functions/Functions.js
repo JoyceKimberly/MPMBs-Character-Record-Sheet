@@ -1088,11 +1088,7 @@ function AddResistance(Input, tooltiptext, replaceThis) {
 			} else if (n === 1 && replaceThis && next.value.toLowerCase().indexOf(replaceThis.toLowerCase()) !== -1) {
 				doReplace = true;
 			} else if (n === 2 && ((doReplace && next.value.toLowerCase().indexOf(replaceThis.toLowerCase()) !== -1) || (!doReplace && clean(next.value) === ""))) {
-				if (useful) {
-					next.currentValueIndices = useful;
-				} else {
-					next.value = Input;
-				}
+				PickDropdown("Resistance Damage Type " + k, useful);
 				if (!doReplace) next.userName = tempString;
 				k = 7;
 			}
