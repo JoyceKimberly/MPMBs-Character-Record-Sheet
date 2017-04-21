@@ -3241,8 +3241,8 @@ ClassSubList["rogue_scout"] = {
 			minlevel : 3,
 			description : "\n   " + "I gain proficiency and expertise with the Nature and Survival skills",
 			skillstxt : "\n\n" + toUni("Scout") + ": proficiency and expertise with Nature and Survival.",
-			eval : "AddSkillProf(\"Nature\", true, true); AddSkillProf(\"Survival\", true, true);",
-			removeeval : "AddSkillProf(\"Nature\", false, true); AddSkillProf(\"Survival\", false, true);"
+			eval : "AddSkillProf('Nature', true, true); AddSkillProf('Survival', true, true);",
+			removeeval : "AddSkillProf('Nature', false, true); AddSkillProf('Survival', false, true);"
 		},
 		"subclassfeature9" : {
 			name : "Superior Mobility",
@@ -3281,8 +3281,7 @@ ClassSubList["sorcerer-favoured soul"] = {
 	source : ["UA:SO", 1],
 	fullname : "Favored Soul",
 	spellcastingList : {
-		class : ["cleric", "sorcerer"],
-		level : [0, 9]
+		class : ["cleric", "sorcerer"]
 	},
 	features : {
 		"subclassfeature1" : {
@@ -3828,7 +3827,7 @@ ClassSubList["wizard-war magic"] = {
 			description : desc([
 				"As a reaction when I'm hit by an attack, I can gain +2 to my AC against that attack",
 				"As a reaction when I fail a Con save, I can gain +4 bonus to that saving throw",
-				"After I do either, I can’t cast spells other than cantrips until the end of my next turn"
+				"After I do either, I can't cast spells other than cantrips until the end of my next turn"
 			]),
 			action : ["reaction", ""]
 		},
