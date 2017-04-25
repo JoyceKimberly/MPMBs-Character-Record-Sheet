@@ -1408,11 +1408,8 @@ function SetCompDropdown() {
 	
 	for (var key in RaceList) {
 		if (testSource(key, RaceList[key], "racesExcl")) continue;
-		if (RaceList[key].sortname) {
-			theList.push(RaceList[key].sortname);
-		} else {
-			theList.push(RaceList[key].name.capitalize());
-		}
+		var raceNm = RaceList[key].sortname ? RaceList[key].sortname : RaceList[key].name.capitalize();
+		if (theList.indexOf(raceNm) === -1) theList.push(raceNm);
 	}
 	theList.sort();
 	
@@ -3391,9 +3388,10 @@ function MakeIconMenu_IconOptions() {
 	};
 	
 	//make default menu items
+	var restrictedViewer = app.viewerType === "Reader" && app.viewerVersion < 17;
 	var IconMenu = [];
 	var OptionMenu = [
-		[(app.viewerType !== "Reader" ? "Set any image file as " : "Set a pdf file as ") + DisplayName, "set"],
+		[(restrictedViewer ? "Set a pdf file as " : "Set any image/pdf file as ") + DisplayName, "set"],
 		["Reset the " + DisplayName, "reset"],
 		["Empty the " + DisplayName, "empty"],
 	];
@@ -3456,7 +3454,7 @@ function MakeIconMenu_IconOptions() {
 	}
 	
 	//add a link to an online pdf converter, if not using Acrobat Pro/Standard
-	if (app.viewerType === "Reader") {
+	if (restrictedViewer) {
 		var Conversions = [
 			["-", "-"],
 			["Go to an online image-to-pdf converter", "convertor"],
@@ -3617,6 +3615,8 @@ function Publish(version) {
 		tDoc.info.Title = MakeDocName();
 	};
 	tDoc.resetForm(["Opening Remember", "CurrentSources.Stringified"]);
+	tDoc.getField("Opening Remember").submitName = 0;
+	tDoc.getField("SaveIMG.Patreon").submitName = "";
 	if (!minVer) DontPrint("d20warning");
 	DnDlogo();
 	tDoc.calculateNow();
@@ -4069,18 +4069,30 @@ function FormatHD() {
 	}
 }
 
-// add the action "Attack (X attacks per action)" to the top of the "actions" field, if there is room to do so
+// add the action "Attack (X attacks per action)" to the top of the "actions" fields, if there is room to do so
 function AddAttacksPerAction() {
 	if (typePF) {
 		var theString = ["Attack (", " attacks per action)"];
+		var regExStr = /\d+.{0,3}attacks/i;
 		if (Number(classes.attacks) < 2) {
-			RemoveAction("action", RegExp(theString[0].RegEscape() + "\\d+" + theString[1].RegEscape(), "i"));
+			RemoveAction("action", regExStr);
 		} else {
-			var action1 = What("Action 1");
-			if (action1 !== "" && !(RegExp(theString[0].RegEscape() + "\\d+" + theString[1].RegEscape(), "i")).test(action1)) {
-				ActionInsert("action", 1);
-			}
-			if (action1 === "" || (RegExp(theString[0].RegEscape() + "\\d+" + theString[1].RegEscape(), "i")).test(action1)) {
+			// first see if it isn't anywhere already
+			var actFld = false;
+			for (var i = 1; i <= FieldNumbers.trueactions; i++) {
+				var actVal = What("Action " + i);
+				if ((regExStr).test(actVal)) {
+					actFld = actVal.indexOf(classes.attacks) === -1 ? "Action " + i : false;
+					break;
+				} else if (actVal === "") {
+					actFld = true;
+				};
+			};
+			//then if a matching field is found, put it there, or otherwise put it at the top
+			if (actFld !== false && actFld !== true) {
+				Value(actFld, theString[0] + classes.attacks + theString[1]);
+			} else if (actFld) {
+				if (What("Action 1") !== "") ActionInsert("action", 1);
 				Value("Action 1", theString[0] + classes.attacks + theString[1]);
 			}
 		}
@@ -4726,7 +4738,8 @@ function UpdateRevisedRangerCompanions(deleteIt) {
 	
 	var ASIs = 0;
 	for (var aClass in classes.known) {
-		ASIs += 2 * CurrentClasses[aClass].improvements[classes.known[aClass].level - 1]
+		var classLvL = Math.min(CurrentClasses[aClass].improvements.length, classes.known[aClass].level);
+		ASIs += 2 * CurrentClasses[aClass].improvements[classLvL - 1];
 	}
 	var ASIstring = function (aCreat) {
 		var toReturn = "whenever I gain an ASI\r  Currently, there are ";
@@ -4894,11 +4907,13 @@ function CountASIs() {
 	if (!AbilityScores.improvements.classlvl) UpdateTooltips();
 	var newASI = 0;
 	for (var nClass in classes.known) {
-		newASI += CurrentClasses[nClass].improvements[classes.known[nClass].level - 1];
+		var clLvl = Math.min(CurrentClasses[nClass].improvements.length, classes.known[nClass].level);
+		newASI += clLvl ? CurrentClasses[nClass].improvements[clLvl - 1] : 0;
 	}
 	var oldASI = 0;
 	for (var oClass in classes.old) {
-		if (classes.old[oClass].classlevel > 1) oldASI += CurrentClasses[oClass].improvements[classes.old[oClass].classlevel - 1];
+		clLvl = Math.min(CurrentClasses[nClass].improvements.length, classes.old[oClass].classlevel);
+		oldASI += clLvl ? CurrentClasses[nClass].improvements[clLvl - 1] : 0;
 	}
 	if (newASI !== oldASI) {		
 		var pTxt = "The change in level has granted your character " + toUni(newASI - oldASI) + " additional " + toUni("Ability Score Improvement") + "(s)!\n\nThe current total of Ability Score Improvements is:" + AbilityScores.improvements.classlvl + "\n\nYou can use these in one of two ways:\n    1. Divide 2 points over ability scores (to max 20);\n        (See the Ability Scores dialogue, i.e. \"Scores\" button.)\n    2. Take 1 feat.\n        (See the Feats section on the sheet.)";
@@ -5179,13 +5194,11 @@ function RemoveClassFeatureChoice(aClass, feature) {
 
 // returns an object of the different elements to populate the class features or limited features section if olchoice is provided, oldlevel has to be provided as well
 function ReturnClassFeatures(aClass, feature, level, choice, oldlevel, oldchoice, ForceClassList, ForceChoice) {
-	level = Math.min(level, 20);
-	oldlevel = Math.min(oldlevel, 20);
 	var tRe = {};
-	var aFea = ForceClassList && !oldchoice && ClassList[aClass].features[feature] && ClassList[aClass].features[feature].name ? ClassList[aClass].features[feature] : CurrentClasses[aClass].features[feature];
+	var aFea = aClass === "race" ? CurrentRace.features[feature] : ForceClassList && !oldchoice && ClassList[aClass].features[feature] && ClassList[aClass].features[feature].name ? ClassList[aClass].features[feature] : CurrentClasses[aClass].features[feature];
 	
 	if (!aFea) {
-		console.println("Class Feature '" + feature + "' could not be found in the ReturnClassFeatures function.");
+		console.println("\nClass/Racial Feature '" + feature + "' for '" + aClass + "' could not be found in the ReturnClassFeatures function.");
 		console.show();
 	};
 	
@@ -5211,11 +5224,12 @@ function ReturnClassFeatures(aClass, feature, level, choice, oldlevel, oldchoice
 		var theP = tRe[aProp];
 		if (theP && isArray(theP)) {
 			var lvlUse = aProp.indexOf("Old") !== -1 && (oldlevel || oldlevel === 0) ? oldlevel : level;
+			lvlUse = Math.min(lvlUse, theP.length);
 			tRe[aProp] = theP[lvlUse - 1] ? theP[lvlUse - 1] : "";
 		}
 	}
 	return tRe;
-}
+};
 
 // set some variables to their metric functionality
 function setListsUnitSystem(isMetric, onStart) {
@@ -5850,7 +5864,7 @@ function CalcAttackDmgHit(fldName) {
 	var thisWeapon = QI ? CurrentWeapons.known[ArrayNmbr] : CurrentWeapons.compKnown[prefix][ArrayNmbr];
 	var WeaponName = thisWeapon[0];
 	var theWea = WeaponsList[WeaponName];
-	var WeaponText = (QI ? CurrentWeapons.field[ArrayNmbr] : CurrentWeapons.compField[prefix][ArrayNmbr]) + " " + fields.Description;
+	var WeaponText = (QI ? CurrentWeapons.field[ArrayNmbr] : CurrentWeapons.compField[prefix][ArrayNmbr]) + (fields.Description ? " " + fields.Description : "");
 	
 	if (!WeaponText || (/^(| |empty)$/).test(fields.Mod)) {
 		Value(fldBase + "Damage", "");
@@ -5928,7 +5942,7 @@ function CalcAttackDmgHit(fldName) {
 		 case "die" :
 			if ((/^(?=.*(B|C))(?=.*d\d).*$/).test(output[out])) { //if this involves a cantrip calculation
 				var cLvl = Number(QI ? What("Character Level") : What(prefix + "Comp.Use.HD.Level"));
-				var cDie = cantripDie[Math.min(Math.max(cLvl - 1, 1), 19)];
+				var cDie = cantripDie[Math.min(Math.max(cLvl, 1), cantripDie.length) - 1];
 				output[out] = output[out].replace(/C/g, cDie).replace(/B/g, cDie - 1).replace(/0.?d\d+/g, 0);
 			};
 			if (output[out][0] == "=") { // a string staring with "=" means it wants to be calculate to values
