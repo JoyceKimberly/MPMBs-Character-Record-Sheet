@@ -2649,16 +2649,12 @@ function ApplyClasses(inputclasstxt, updateall) {
 	var noSubClExc = IsSubclassException.toSource() === "({})";
 	
 	UpdateLevelFeatures("class");
-<<<<<<< HEAD:_functions/Functions.js
-	if (JSON.stringify(IsSubclassException) === "({})") {
-=======
 	
 	// if a subclass was just selected, run applyclasses again
 	if (IsSubclassException.toSource() !== "({})" && event.target.name && event.target.name === "Class and Levels" && event.value !== classes.field) ApplyClasses(classes.field);
 	
 	if (noSubClExc) {
 		thermoM("Finalizing the changes of the class(es)..."); //change the progress dialog text
->>>>>>> morepurplemorebetter/master:_functions/Functions1.js
 		AddAttacksPerAction(); //update number of attacks
 		ApplyProficiencies(true); //call to update armor, shield and weapon proficiencies
 		UpdateTooltips(); //skills tooltip, ability score tooltip

@@ -3540,24 +3540,9 @@ function SetStringifieds(type) {
 		//any time the CurrentSpells variable is changed, we need to update the CurrentWeapons variable as well
 		FindWeapons();
 	}
-<<<<<<< HEAD
-	if (!type || type === "sources") Value("CurrentSources.Stringified", JSON.stringify(CurrentSources));
-	if (!type || type === "evals") Value("CurrentEvals.Stringified", JSON.stringify(CurrentEvals));
-}
-
-//remove the empty values from an array (removes all things that are considered false, such as 0, "", undefined, false)
-function removeEmptyValues(array) {
-	var returnArray = [];
-	for (var i = 0; i < array.length; i++) {
-		if (array[i]) returnArray.push(array[i]);
-	}
-	return returnArray;
-}
-=======
 	if (!type || type === "sources") Value("CurrentSources.Stringified", CurrentSources.toSource());
 	if (!type || type === "evals") Value("CurrentEvals.Stringified", CurrentEvals.toSource());
 };
->>>>>>> morepurplemorebetter/master
 
 //set the sheet version
 function Publish(version) {
