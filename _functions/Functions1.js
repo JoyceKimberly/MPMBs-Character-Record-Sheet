@@ -2646,12 +2646,12 @@ function ApplyClasses(inputclasstxt, updateall) {
 	
 	thermoM(5/6); //increment the progress dialog's progress
 	
-	var noSubClExc = IsSubclassException.toSource() === "({})";
+	var noSubClExc = JSON.stringify(IsSubclassException) === "({})";
 	
 	UpdateLevelFeatures("class");
 	
 	// if a subclass was just selected, run applyclasses again
-	if (IsSubclassException.toSource() !== "({})" && event.target.name && event.target.name === "Class and Levels" && event.value !== classes.field) ApplyClasses(classes.field);
+	if (JSON.stringify(IsSubclassException) !== "({})" && event.target.name && event.target.name === "Class and Levels" && event.value !== classes.field) ApplyClasses(classes.field);
 	
 	if (noSubClExc) {
 		thermoM("Finalizing the changes of the class(es)..."); //change the progress dialog text
