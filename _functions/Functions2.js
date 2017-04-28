@@ -3540,8 +3540,8 @@ function SetStringifieds(type) {
 		//any time the CurrentSpells variable is changed, we need to update the CurrentWeapons variable as well
 		FindWeapons();
 	}
-	if (!type || type === "sources") Value("CurrentSources.Stringified", CurrentSources.toSource());
-	if (!type || type === "evals") Value("CurrentEvals.Stringified", CurrentEvals.toSource());
+	if (!type || type === "sources") Value("CurrentSources.Stringified", JSON.stringify(CurrentSources));
+	if (!type || type === "evals") Value("CurrentEvals.Stringified", JSON.stringify(CurrentEvals));
 };
 
 //set the sheet version
