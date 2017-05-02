@@ -748,7 +748,7 @@ FeatsList["wood elf magic"] = {
 
 //add the other variants of the Grudge-bearer feat
 function AmendFeats() {
-	var grudgeBearerFeat = FeatsList["grudge-bearer [aberrations]"].toSource();
+	var grudgeBearerFeat = JSON.stringify(FeatsList["grudge-bearer [aberrations]"]);
 	var GBarray = ["beasts", "celestials", "constructs", "dragons", "elementals", "fey", "fiends", "giants", "monstrosities", "oozes", "plants", "undead"];
 	for (var i = 0; i < GBarray.length; i++) {
 		var GBcrea = GBarray[i];
