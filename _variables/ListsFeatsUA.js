@@ -753,7 +753,7 @@ function AmendFeats() {
 	for (var i = 0; i < GBarray.length; i++) {
 		var GBcrea = GBarray[i];
 		var theNm = "grudge-bearer [" + GBcrea + "]";
-		FeatsList[theNm] = eval(grudgeBearerFeat);
+		FeatsList[theNm] = JSON.parse(grudgeBearerFeat);
 		FeatsList[theNm].name = FeatsList[theNm].name.replace("aberrations", GBcrea);
 		FeatsList[theNm].description = FeatsList[theNm].description.replace("aberrations", GBcrea);
 		FeatsList[theNm].improvements = FeatsList[theNm].improvements.replace("aberrations", GBcrea);
