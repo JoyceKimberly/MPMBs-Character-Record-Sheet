@@ -2827,8 +2827,7 @@ function AskUserSpellSheet() {
 			//see what spell section to activate
 			if (spCast.known.cantrips) {
 				dia.showCa = true; //show the cantrips section
-				var CaLvl = Math.min(spCast.known.cantrips.length, spCast.level) - 1;
-				dia.nmbrCa = isArray(spCast.known.cantrips) ? spCast.known.cantrips[CaLvl] : spCast.known.cantrips; //set the amount of cantrips
+				dia.nmbrCa = isArray(spCast.known.cantrips) ? spCast.known.cantrips[Math.min(spCast.known.cantrips.length, spCast.level) - 1] : spCast.known.cantrips; //set the amount of cantrips
 				dia.offsetCa = spCast.offsetCa ? spCast.offsetCa : 0; //set the manually added cantrips
 				dia.selectCa = spCast.selectCa ? spCast.selectCa : []; //set the cantrips already selected
 				
@@ -2840,8 +2839,7 @@ function AskUserSpellSheet() {
 				dia.showCa = false; //hide the cantrip section
 			}
 			//now also do this for the spells
-			var SpLvl = Math.min(spCast.known.spells.length, spCast.level) - 1;
-			dia.nmbrSp = spCast.known.spells === undefined ? "" : isArray(spCast.known.spells) ? spCast.known.spells[SpLvl] : spCast.known.spells; //set the amount of spells
+			dia.nmbrSp = spCast.known.spells === undefined ? "" : isArray(spCast.known.spells) ? spCast.known.spells[Math.min(spCast.known.spells.length, spCast.level) - 1] : spCast.known.spells; //set the amount of spells
 			dia.typeSp = dia.nmbrSp === "" ? "" : isNaN(dia.nmbrSp) ? dia.nmbrSp : "known"; //set the type of spells (book, list, known)
 			dia.nmbrSp = !isNaN(dia.nmbrSp) ? dia.nmbrSp : 18; //if spells known is not a number, set the dialog to the max of 18
 			dia.showSpRadio = spCast.level && (dia.typeSp === "list" || dia.typeSp === "book"); //show the spell radio buttons if concerning a list (druid/cleric/paladin)

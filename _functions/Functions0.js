@@ -458,7 +458,7 @@ function testFont(fontTest) {
 };
 
 function clean(input, remove, diacretics) {
-	var charArray = remove && typeof remove !== "undefined" ? remove : [" ", "-", ".", ",", "\\", "/", ":", ";"];
+	var charArray = remove ? remove : [" ", "-", ".", ",", "\\", "/", ":", ";"];
 	while (charArray.indexOf(input[0]) !== -1) {
 		input = input.slice(1);
 	}
@@ -466,6 +466,11 @@ function clean(input, remove, diacretics) {
 		input = input.slice(0, -1);
 	}
 	return diacretics ? removeDiacritics(input) : input;
+};
+
+//convert string to usable, complex regex
+function MakeRegex(inputString, extraRegex) {
+	return RegExp("^(?=.*\\b" + inputString.replace(/\W/g, " ").replace(/^ +| +$/g, "").RegEscape().replace(/('?s'?)\b/ig, "\($1\)?").replace(/ +/g, "\\b)(?=.*\\b") + "\\b)" + (extraRegex ? extraRegex : "") + ".*$", "i");
 };
 
 function toUni(input) {

@@ -183,8 +183,7 @@ FeatsList["blade mastery"] = {
 		atkAdd : ["if ((/shortsword|longsword|greatsword|scimitar|rapier/).test(WeaponName)) {fields.Description += (fields.Description ? '; ' : '') + 'Advantage on opportunity attacks';}; ", "With a shortsword, longsword, greatsword, scimitar, or rapier, I get the following benefits:\n - +1 to hit;\n - Advantage on opportunity attacks."],
 		atkCalc : ["if ((/shortsword|longsword|greatsword|scimitar|rapier/).test(WeaponName)) {output.extraHit += 1;}; ", ""]
 	},
-	eval : "AddAction('reaction', 'Blade Mastery Parrying Stance', 'the Blade Mastery feat');",
-	removeeval : "RemoveAction('reaction', 'Blade Mastery Parrying Stance');",
+	action : ["reaction", " Parrying Stance"]
 };
 FeatsList["flail mastery"] = {
 	name : "Flail Mastery",
@@ -194,8 +193,7 @@ FeatsList["flail mastery"] = {
 		atkAdd : ["if (WeaponName === 'flail') {fields.Description += (fields.Description ? '; ' : '') + 'On opportunity attack hit, Strength save (DC 8 + Prof. bonus + Str mod) or knocked prone';}; ", "With a flail, I get the following benefits:\n - +1 to hit;\n - Targets hit with it must make a Strength saving throw (DC 8 + proficiency bonus + Strength modifier) or be knocked prone."],
 		atkCalc : ["if (WeaponName === 'flail') {output.extraHit += 1;}; ", ""]
 	},
-	eval : "AddAction('bonus action', 'Flail Mastery', 'the Flail Mastery feat');",
-	removeeval : "RemoveAction('bonus action', 'Flail Mastery');",
+	action : ["bonus action", ""]
 };
 FeatsList["spear mastery"] = {
 	name : "Spear Mastery",
@@ -205,8 +203,9 @@ FeatsList["spear mastery"] = {
 		atkAdd : ["if (WeaponName === 'spear') { fields.Damage_Die = fields.Damage_Die === '1d6' ? '1d8' : fields.Damage_Die; fields.Description = fields.Description.replace('versatile (1d8)', 'versatile (1d10)'); }; ", "With a spear, I get the following benefits:\n - +1 to hit;\n - The spear damage die increases to d8 (versatile d10)."],
 		atkCalc : ["if (WeaponName === 'spear') {output.extraHit += 1;}; ", ""]
 	},
-	eval : "AddAction('bonus action', 'Spear Mastery (set vs. charge)', 'the Spear Mastery feat'); AddAction('bonus action', 'Spear Mastery (increase reach)', 'the Spear Mastery feat');",
-	removeeval : "RemoveAction('bonus action', 'Spear Mastery (set vs. charge)'); RemoveAction('bonus action', 'Spear Mastery (increase reach)');",
+	action : ["bonus action", " (set vs. charge)"],
+	eval : "AddAction('bonus action', 'Spear Mastery (increase reach)', 'the Spear Mastery feat');",
+	removeeval : "RemoveAction('bonus action', 'Spear Mastery (increase reach)');",
 };
 FeatsList["alchemist"] = {
 	name : "Alchemist",
@@ -214,8 +213,9 @@ FeatsList["alchemist"] = {
 	description : "I gain proficiency with alchemist's supplies, or expertise if already proficient. As an action, I can identify a potion within 5 ft. During a rest with alchemist's supplies, I can make a potion of healing, of any rarity. Consuming it within 1 hour maximizes its effects [+1 Int]",
 	improvements : "Alchemist (feat): +1 Intelligence;",
 	scores : [0, 0, 0, 1, 0, 0],
-	eval : "AddTool('Alchemist\\'s Supplies', 'the Alchemist feat'); AddAction('action', 'Alchemist (identify potion)', 'the Alchemist feat'); if ((/(alchemist|alchemy).*(supplies|kit)/i).test(What('Too Text'))) { Checkbox('Too Exp', true); } else if (What('Too') === '') {Checkbox('Too Prof', true); Value('Too Text', 'Alchemist Kit (Int)'); };",
-	removeeval : "RemoveTool('Alchemist\\'s Supplies', 'the Alchemist feat'); RemoveAction('action', 'Alchemist (identify potion)'); if ((/(alchemist|alchemy).*(supplies|kit)/i).test(What('Too Text'))) { if (tDoc.getField('Too Exp').isBoxChecked(0)) { Checkbox('Too Exp', false); } else { tDoc.resetForm(['Too Prof', 'Too Exp', 'Too Text']); }; };"
+	action : ["action", " (identify potion)"],
+	eval : "AddTool('Alchemist\\'s Supplies', 'the Alchemist feat'); if ((/(alchemist|alchemy).*(supplies|kit)/i).test(What('Too Text'))) { Checkbox('Too Exp', true); } else if (What('Too') === '') {Checkbox('Too Prof', true); Value('Too Text', 'Alchemist Kit (Int)'); };",
+	removeeval : "RemoveTool('Alchemist\\'s Supplies', 'the Alchemist feat'); if ((/(alchemist|alchemy).*(supplies|kit)/i).test(What('Too Text'))) { if (tDoc.getField('Too Exp').isBoxChecked(0)) { Checkbox('Too Exp', false); } else { tDoc.resetForm(['Too Prof', 'Too Exp', 'Too Text']); }; };"
 };
 FeatsList["burglar"] = {
 	name : "Burglar",
@@ -232,8 +232,9 @@ FeatsList["gourmand"] = {
 	description : "I gain proficiency with cook's utensils, or expertise if already proficient. As an action, I can detect poison in food within 5 ft. In a long rest with food/supplies, I can have 6 creatures regain 2 extra HD and give them adv. on Con saves vs. disease for 24 hours. [+1 Con]",
 	improvements : "Gourmand (feat): +1 Constitution;",
 	scores : [0, 0, 1, 0, 0, 0],
-	eval : "AddTool('Cook\\'s Utensils', 'the Gourmand feat'); AddAction('action', 'Gourmand (inspect food)', 'the Gourmand feat'); if ((/cook.*utensils/i).test(What('Too Text'))) { Checkbox('Too Exp', true); } else if (What('Too') === '') {Checkbox('Too Prof', true); Value('Too Text', 'Cook\\'s Utensils (Int)'); };",
-	removeeval : "RemoveTool('Cook\\'s Utensils', 'the Gourmand feat'); RemoveAction('action', 'Gourmand (inspect food)'); if ((/cook.*utensils/i).test(What('Too Text'))) { if (tDoc.getField('Too Exp').isBoxChecked(0)) { Checkbox('Too Exp', false); } else { tDoc.resetForm(['Too Prof', 'Too Exp', 'Too Text']); }; };"
+	action : ["action", " (inspect food)"],
+	eval : "AddTool('Cook\\'s Utensils', 'the Gourmand feat'); if ((/cook.*utensils/i).test(What('Too Text'))) { Checkbox('Too Exp', true); } else if (What('Too') === '') {Checkbox('Too Prof', true); Value('Too Text', 'Cook\\'s Utensils (Int)'); };",
+	removeeval : "RemoveTool('Cook\\'s Utensils', 'the Gourmand feat'); if ((/cook.*utensils/i).test(What('Too Text'))) { if (tDoc.getField('Too Exp').isBoxChecked(0)) { Checkbox('Too Exp', false); } else { tDoc.resetForm(['Too Prof', 'Too Exp', 'Too Text']); }; };"
 };
 FeatsList["master of disguise"] = {
 	name : "Master of Disguise",
@@ -241,8 +242,9 @@ FeatsList["master of disguise"] = {
 	description : "I gain proficiency with the disguise kit, or expertise with it if I'm already proficient. After observing a creature for 1 hour, I can craft a disguise to mimic it in 8 hours with a disguise kit. Once finished, I can don this disguise as an action. [+1 Charisma]",
 	improvements : "Master of Disguise (feat): +1 Charisma;",
 	scores : [0, 0, 0, 0, 0, 1],
-	eval : "AddTool('Disguise Kit', 'the Master of Disguise feat'); AddAction('action', 'Master of Disguise (don disguise)', 'the Master of Disguise feat'); if ((/disguise.*kit/i).test(What('Too Text'))) { Checkbox('Too Exp', true); } else if (What('Too') === '') {Checkbox('Too Prof', true); Value('Too Text', 'Disguise Kit (Cha)'); };",
-	removeeval : "RemoveTool('Disguise Kit', 'the Master of Disguise feat'); RemoveAction('action', 'Master of Disguise (don disguise)'); if ((/disguise.*kit/i).test(What('Too Text'))) { if (tDoc.getField('Too Exp').isBoxChecked(0)) { Checkbox('Too Exp', false); } else { tDoc.resetForm(['Too Prof', 'Too Exp', 'Too Text']); }; };"
+	action : ["action", " (don disguise)"],
+	eval : "AddTool('Disguise Kit', 'the Master of Disguise feat'); if ((/disguise.*kit/i).test(What('Too Text'))) { Checkbox('Too Exp', true); } else if (What('Too') === '') {Checkbox('Too Prof', true); Value('Too Text', 'Disguise Kit (Cha)'); };",
+	removeeval : "RemoveTool('Disguise Kit', 'the Master of Disguise feat'); if ((/disguise.*kit/i).test(What('Too Text'))) { if (tDoc.getField('Too Exp').isBoxChecked(0)) { Checkbox('Too Exp', false); } else { tDoc.resetForm(['Too Prof', 'Too Exp', 'Too Text']); }; };"
 };
 
 /*	the Feats for Skills Unearthed Arcana of 2017-04-17
@@ -517,8 +519,8 @@ FeatsList["critter friend"] = {
 		oncelr : true
 	}, {
 		name : "Once per long rest",
-		spells : ["speak with animals"],
-		selection : ["speak with animals"],
+		spells : ["animal friendship"],
+		selection : ["animal friendship"],
 		oncelr : true
 	}]
 };
@@ -526,16 +528,16 @@ FeatsList["dragon fear"] = {
 	name : "Dragon Fear",
 	source : ["UA:FR", 2],
 	prerequisite : "Being a Dragonborn",
-	calculate : "event.value = 'I can expend a Breath Weapon use to roar instead. Each creature of my choice within 30 ft that can see or hear me must make a DC ' + (8 + What('Proficiency Bonus') + What('Wis Mod') + ' Wis save (8 + prof. bonus + Cha mod) or be frightened for 1 min. It can repeat the save whenever it takes damage. [+1 Str or Cha]';",
+	calculate : "event.value = 'I can expend a Breath Weapon use to roar instead. Each creature of my choice within 30 ft that can see or hear me must make a DC ' + (8 + Number(What('Proficiency Bonus')) + Number(What('Wis Mod'))) + ' Wis save (8 + prof. bonus + Cha mod) or be frightened for 1 min. It can repeat the save whenever it takes damage. [+1 Str or Cha]';",
 	improvements : "Dragon Fear (feat): +1 Strength or Charisma;",
 	eval : "AddAction('action', 'Breath Weapon or Dragon Fear', 'Dragon Fear (feat)', 'Breath Weapon');",
-	removeeval : "AddAction('action', 'Breath Weapon', 'Dragonborn (Draconic Ancestry)', 'Breath Weapon or Dragon Fear');"
+	removeeval : "AddAction('action', 'Breath Weapon', 'Dragonborn (Draconic Ancestry)', 'Breath Weapon or Dragon Fear'); if (CurrentRace.known !== 'dragonborn') { RemoveAction('action', 'Breath Weapon'); }; "
 };
 FeatsList["dragon hide"] = {
 	name : "Dragon Hide",
 	source : ["UA:FR", 2],
 	prerequisite : "Being a Dragonborn",
-	description : " [+1 Strength or Charisma]",
+	description : "I gain retractable claws that I can retract or extend, requiring no action. While extended, my unarmed strikes deal 1d4 slashing damage. My scales harden, giving me a +1 bonus to AC when I'm not wearing armor. [+1 Strength or Charisma]",
 	improvements : "Dragon Hide (feat): +1 Strength or Charisma;",
 	eval : "AddWeapon('Retractable Claws'); AddACMisc(1, 'Dragon Hide', 'While not wearing armor, the Dragon Hide feat gives a +1 bonus to AC', 'CurrentArmour.known && ArmourList[CurrentArmour.known].type');",
 	removeeval : "RemoveWeapon('Retractable Claws'); AddACMisc(0, 'Dragon Hide', 'While not wearing armor, the Dragon Hide feat gives a +1 bonus to AC');"
@@ -622,7 +624,9 @@ FeatsList["fey teleportation"] = {
 		spells : ["misty step"],
 		selection : ["misty step"],
 		oncesr : true
-	}
+	},
+	eval : "AddFeature('Fey Teleportation', 1, '', 'short rest', 'Fey Teleportation feat');",
+	removeeval : "RemoveFeature('Fey Teleportation');"
 };
 FeatsList["flames of phlegethos"] = {
 	name : "Flames of Phlegethos",
@@ -645,14 +649,6 @@ FeatsList["grudge-bearer [aberrations]"] = {
 	description : "My hatred for aberrations gives me these benefits against them: Adv. on attacks in the first round of combat. Their opportunity attacks have disadv. against me. I add twice my prof. bonus on related Arcana, History, Nature, and Religion checks [+1 Str, Con, or Wis]",
 	improvements : "Grudge-Bearer [aberrations] (feat): +1 Strength, Constitution, or Wisdom;"	
 };
-var grudgeBearerFeat = FeatsList["grudge-bearer [aberrations]"].toSource();
-["beasts", "celestials", "constructs", "dragons", "elementals", "fey", "fiends", "giants", "monstrosities", "oozes", "plants", "undead"].forEach( function(GBcrea) {
-	var theNm = "grudge-bearer [" + GBcrea + "]";
-	FeatsList[theNm] = eval(grudgeBearerFeat);
-	FeatsList[theNm].name.replace("aberrations", GBcrea);
-	FeatsList[theNm].description.replace("aberrations", GBcrea);
-	FeatsList[theNm].improvements.replace("aberrations", GBcrea);
-});
 FeatsList["human determination"] = {
 	name : "Human Determination",
 	source : ["UA:FR", 3],
@@ -705,8 +701,8 @@ FeatsList["second chance"] = {
 	prerequisite : "Being a Halfling",
 	description : "When a creature I can see hits me with an attack roll, I can use my reaction to force that creature to reroll. Once I use this ability, I can't do so again until I finish a short rest.\n[+1 Dexterity, Constitution, or Charisma]",
 	improvements : "Second Chance (feat): +1 Dexterity, Constitution, or Charisma;",
-	eval : "AddFeature('Second Chance (extra damage)', 1, '', 'short rest', 'Second Chance feat');",
-	removeeval : "RemoveFeature('Second Chance (extra damage)');",
+	eval : "AddFeature('Second Chance', 1, '', 'short rest', 'Second Chance feat');",
+	removeeval : "RemoveFeature('Second Chance');",
 	action : ["reaction", ""]
 };
 FeatsList["squat nimbleness"] = {
@@ -744,8 +740,22 @@ FeatsList["wood elf magic"] = {
 		oncelr : true
 	}, {
 		name : "Once per long rest",
-		spells : ["pass without trace,"],
-		selection : ["pass without trace,"],
+		spells : ["pass without trace"],
+		selection : ["pass without trace"],
 		oncelr : true
 	}]
+};
+
+//add the other variants of the Grudge-bearer feat
+function AmendFeats() {
+	var grudgeBearerFeat = FeatsList["grudge-bearer [aberrations]"].toSource();
+	var GBarray = ["beasts", "celestials", "constructs", "dragons", "elementals", "fey", "fiends", "giants", "monstrosities", "oozes", "plants", "undead"];
+	for (var i = 0; i < GBarray.length; i++) {
+		var GBcrea = GBarray[i];
+		var theNm = "grudge-bearer [" + GBcrea + "]";
+		FeatsList[theNm] = eval(grudgeBearerFeat);
+		FeatsList[theNm].name = FeatsList[theNm].name.replace("aberrations", GBcrea);
+		FeatsList[theNm].description = FeatsList[theNm].description.replace("aberrations", GBcrea);
+		FeatsList[theNm].improvements = FeatsList[theNm].improvements.replace("aberrations", GBcrea);
+	};
 };

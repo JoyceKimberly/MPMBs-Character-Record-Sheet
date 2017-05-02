@@ -116,6 +116,7 @@ var Menus = {
 	"classfeatures" : "",
 	"chooselayers" : "",
 	"gear" : "",
+	"gearline" : "",
 	"magicitems" : "",
 	"color" : "",
 	"raceoptions" : "",
@@ -168,8 +169,14 @@ var Menus = {
 	"glossary" : "",
 	"hp" : "",
 	"texts" : "",
-	"skills" : "",
+	"skills" : ""
 };
+
+var GearMenus = {
+	gear : "",
+	tools : "",
+	packs : ""
+}
 
 var classes = {
 	field : "",
