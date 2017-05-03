@@ -303,7 +303,7 @@ var WeaponsList = {
 		abilitytodamage : true,
 	},
 	"handaxe" : {
-		regExpSearch : /^(?=.*(light|hand|short|small|throw))(?=.*\b(axe|fu)\b).*$|\bono\b/i,
+		regExpSearch : /^(?=.*(light|hand|short|small|throw))(?=.*(axe|\bfu)\b).*$|\bono\b/i,
 		name : "Handaxe",
 		source : ["P", 149],
 		list : "melee",
@@ -468,7 +468,7 @@ var WeaponsList = {
 		ammo : "bullet"
 	},
 	"battleaxe" : {
-		regExpSearch : /^(((?=.*battle)(?=.*(axe|ono|fu)\b))|((?!.*(light|hand|short|small|great|heavy|throw))(?=.*\b(axe|fu|masakari)\b))).*$/i,
+		regExpSearch : /^(((?=.*battle)(?=.*(axe|\bono|\bfu)\b))|((?!.*(light|hand|short|small|great|heavy|throw))(?=.*\b(axe|fu|masakari)\b))).*$/i,
 		name : "Battleaxe",
 		source : ["P", 149],
 		list : "melee",
@@ -507,7 +507,7 @@ var WeaponsList = {
 		abilitytodamage : true
 	},
 	"greataxe" : {
-		regExpSearch : /^(?=.*(great|heavy|weida))(?=.*(axe|ono|fu|masakari)\b).*$/i,
+		regExpSearch : /^(?=.*(great|heavy|weida))(?=.*(axe|\bono|\bfu|masakari)\b).*$/i,
 		name : "Greataxe",
 		source : ["P", 149],
 		list : "melee",
@@ -2021,6 +2021,12 @@ var GearList = {
 		amount : "",
 		weight : ""
 	},
+	"bit and bridle" : {
+		infoname : "Bit and bridle [2 gp]",
+		name : "Bit and bridle",
+		amount : "",
+		weight : 1
+	},
 	"blanket" : {
 		infoname : "Blanket [5 sp]",
 		name : "Blanket",
@@ -2434,6 +2440,42 @@ var GearList = {
 		name : "Sack",
 		amount : "",
 		weight : 0.5
+	},
+	"saddle:" : {
+		infoname : "Saddle:",
+		name : "-",
+		amount : "",
+		weight : ""
+	},
+	"saddle: exotic" : {
+		infoname : "   Exotic [60 gp]",
+		name : "Exotic saddle",
+		amount : "",
+		weight : 40
+	},
+	"saddle: military" : {
+		infoname : "   Military [20 gp]",
+		name : "Military saddle",
+		amount : "",
+		weight : 30
+	},
+	"saddle: pack" : {
+		infoname : "   Pack [5 gp]",
+		name : "Pack saddle",
+		amount : "",
+		weight : 15
+	},
+	"saddle: riding" : {
+		infoname : "   Riding [25 gp]",
+		name : "Riding saddle",
+		amount : "",
+		weight : 10
+	},
+	"saddlebags" : {
+		infoname : "Saddlebags [4 gp]",
+		name : "Saddlebags",
+		amount : "",
+		weight : 8
 	},
 	"scale, merchant's" : {
 		infoname : "Scale, merchant's [5 gp]",
