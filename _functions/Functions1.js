@@ -483,7 +483,7 @@ function AddResistance(Input, tooltiptext, replaceThis) {
 			}
 		}
 	};
-	var tempString = tooltiptext !== undefined ? "The resistance to \"" + tooltipString + "\" was gained from " + tooltiptext + "." : "";
+	var tempString = tooltiptext ? "The resistance to \"" + tooltipString + "\" was gained from " + tooltiptext + "." : "";
 	var doReplace = false;
 	for (var n = 1; n <= 2; n++) {
 		for (var k = 1; k < 7; k++) {
@@ -3386,12 +3386,15 @@ function InventoryOptions() {
 		thermoM("Toggling the visibility of the location column on page 3...");
 		HideInvLocationColumn("Extra.Gear ", What("Gear Location Remember").split(",")[1] === "true");
 	} else if (MenuSelection[0].indexOf("background") !== -1) {
+		thermoM("Adding background items to equipment section...");
 		AddInvBackgroundItems();
 	};
 	if (MenuSelection[0].indexOf("armour") !== -1) {
+		thermoM("Adding/updating armor and shield in equipment section...");
 		AddInvArmorShield();
 	};
 	if (MenuSelection[0].indexOf("weapon") !== -1) {
+		thermoM("Adding/updating weapons and ammunition in equipment section...");
 		AddInvWeaponsAmmo();
 	};
 	
